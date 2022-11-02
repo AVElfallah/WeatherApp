@@ -22,11 +22,16 @@ class WeatherCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         color: ProjectColors.purpleLight,
-        title: GFListTile(
+        /*   title: GFListTile(
           title: Image.asset(
             assetsImage!,
           ),
+        ), */
+        image: Image.asset(
+          assetsImage!,
+          scale: 5,
         ),
+        showImage: true,
         content: Column(
           children: [
             Text(

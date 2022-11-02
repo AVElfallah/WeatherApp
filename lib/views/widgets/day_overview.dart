@@ -1,14 +1,14 @@
-import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:weather_app/colors/colors.dart';
 import 'package:weather_app/config/assets.dart';
 
-class TestWidget extends StatelessWidget {
-  const TestWidget({Key? key}) : super(key: key);
+class DayOverviewWidget extends StatelessWidget {
+  const DayOverviewWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var mqSize = MediaQuery.of(context).size;
+    final bool isPortrate =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     var sizedBox = SizedBox(
       width: mqSize.width * .2,
       height: mqSize.height * .03,
@@ -55,7 +55,7 @@ class TestWidget extends StatelessWidget {
       ),
       child: ListView(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(25),
         children: [
           sizedBox,
           sizedBox,
