@@ -19,7 +19,7 @@ class DayOverviewWidget extends StatelessWidget {
             '21°C',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 25,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -27,14 +27,14 @@ class DayOverviewWidget extends StatelessWidget {
             height: 10,
           ),
           Image.asset(
-            Assets.freshair,
-            scale: 9,
+            Assets.waterdrops,
+            scale: 11,
           ),
           const Text(
-            'Now',
+            '2 PM',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 18,
+              fontSize: 16,
             ),
           ),
         ],

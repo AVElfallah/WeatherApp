@@ -33,7 +33,7 @@ dependencies:
   date_time_format: ^2.0.1
   getwidget: ^3.0.1
   circle_list: ^1.0.5
-  syncfusion_flutter_charts: ^20.3.52
+  dio: ^4.0.6
 
 
   # The following adds the Cupertino Icons font to your application.
