@@ -2,7 +2,7 @@ import 'package:weather_app/model/weather_condition_model.dart';
 
 class DayModel {
   double? maxtempC;
-  int? maxtempF;
+  double? maxtempF;
   double? mintempC;
   double? mintempF;
   double? avgtempC;
@@ -15,10 +15,10 @@ class DayModel {
   double? avgvisKm;
   double? avgvisMiles;
   double? avghumidity;
-  double? dailyWillItRain;
-  double? dailyChanceOfRain;
-  double? dailyWillItSnow;
-  double? dailyChanceOfSnow;
+  bool? dailyWillItRain;
+  int? dailyChanceOfRain;
+  bool? dailyWillItSnow;
+  int? dailyChanceOfSnow;
   WeatherConditionModel? condition;
   double? uv;
 
@@ -60,9 +60,9 @@ class DayModel {
     avgvisKm = json['avgvis_km'];
     avgvisMiles = json['avgvis_miles'];
     avghumidity = json['avghumidity'];
-    dailyWillItRain = json['daily_will_it_rain'];
+    dailyWillItRain = json['daily_will_it_rain'] == 1;
     dailyChanceOfRain = json['daily_chance_of_rain'];
-    dailyWillItSnow = json['daily_will_it_snow'];
+    dailyWillItSnow = json['daily_will_it_snow'] == 1;
     dailyChanceOfSnow = json['daily_chance_of_snow'];
     condition = json['condition'] != null
         ? WeatherConditionModel.fromJson(json['condition'])

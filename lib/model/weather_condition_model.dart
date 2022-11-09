@@ -1,7 +1,7 @@
 class WeatherConditionModel {
   String? text;
   String? icon;
-  double? code;
+  int? code;
 
   WeatherConditionModel({this.text, this.icon, this.code});
 

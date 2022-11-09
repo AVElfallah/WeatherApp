@@ -6,13 +6,14 @@ class AstronomyModel {
   String? moonPhase;
   String? moonIllumination;
 
-  AstronomyModel(
-      {this.sunrise,
-      this.sunset,
-      this.moonrise,
-      this.moonset,
-      this.moonPhase,
-      this.moonIllumination});
+  AstronomyModel({
+    this.sunrise,
+    this.sunset,
+    this.moonrise,
+    this.moonset,
+    this.moonPhase,
+    this.moonIllumination,
+  });
 
   AstronomyModel.fromJson(Map<String, dynamic> json) {
     sunrise = json['sunrise'];

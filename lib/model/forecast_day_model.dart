@@ -4,17 +4,22 @@ import 'package:weather_app/model/forecast_hour_model.dart';
 
 class ForecastDayModel {
   String? date;
-  double? dateEpoch;
+  int? dateEpoch;
   DayModel? day;
   AstronomyModel? astro;
   List<ForecastHourModel>? hour;
 
-  ForecastDayModel(
-      {this.date, this.dateEpoch, this.day, this.astro, this.hour});
+  ForecastDayModel({
+    this.date,
+    this.dateEpoch,
+    this.day,
+    this.astro,
+    this.hour,
+  });
 
   ForecastDayModel.fromJson(Map<String, dynamic> json) {
     date = json['date'];
-    dateEpoch = double.parse(['date_epoch'].toString());
+    dateEpoch = int.parse(json['date_epoch'].toString());
     day = json['day'] != null ? DayModel.fromJson(json['day']) : null;
     astro =
         json['astro'] != null ? AstronomyModel.fromJson(json['astro']) : null;

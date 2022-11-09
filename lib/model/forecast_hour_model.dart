@@ -5,18 +5,18 @@ class ForecastHourModel {
   String? lastUpdated;
   double? tempC;
   double? tempF;
-  double? isDay;
+  bool? isDay;
   WeatherConditionModel? condition;
   double? windMph;
   double? windKph;
-  double? windDegree;
+  int? windDegree;
   String? windDir;
   double? pressureMb;
   double? pressureIn;
   double? precipMm;
   double? precipIn;
-  double? humidity;
-  double? cloud;
+  int? humidity;
+  int? cloud;
   double? feelslikeC;
   double? feelslikeF;
   double? visKm;
@@ -51,7 +51,7 @@ class ForecastHourModel {
     this.gustKph,
   });
 
-  static fromListOFHourJson(List<Map<String, dynamic>> json) {
+  static fromListOFHourJson(List<dynamic> json) {
     return json.map((e) => ForecastHourModel.fromJson(e)).toList();
   }
 
@@ -60,7 +60,7 @@ class ForecastHourModel {
     lastUpdated = json['last_updated'];
     tempC = json['temp_c'];
     tempF = json['temp_f'];
-    isDay = json['is_day'];
+    isDay = json['is_day'] == 1;
     condition = json['condition'] != null
         ? WeatherConditionModel.fromJson(json['condition'])
         : null;
@@ -91,9 +91,6 @@ class ForecastHourModel {
       'temp_f': tempF,
       'is_day': isDay,
       'condition': condition!.toJson(),
-      /*   if (this.condition != null) {
-      data['condition'] = this.condition!.toJson();
-    } */
       'wind_mph': windMph,
       'wind_kph': windKph,
       'wind_degree': windDegree,
