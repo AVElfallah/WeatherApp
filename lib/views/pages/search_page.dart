@@ -2,22 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:weather_app/colors/colors.dart';
+import 'package:weather_app/config/context_extention.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final mqSize = MediaQuery.of(context).size;
-    final bool isPorrate =
-        MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       backgroundColor: ProjectColors.purple,
       appBar: GFAppBar(
         backgroundColor: ProjectColors.purple,
         elevation: 0,
         title: Row(
-          mainAxisAlignment: isPorrate
+          mainAxisAlignment: context.isPortrait
               ? MainAxisAlignment.spaceBetween
               : MainAxisAlignment.spaceEvenly,
           children: [
@@ -27,9 +25,10 @@ class SearchPage extends StatelessWidget {
               ),
               decoration: InputDecoration(
                 constraints: BoxConstraints(
-                  maxHeight:
-                      isPorrate ? mqSize.height * .050 : mqSize.height * .1,
-                  maxWidth: mqSize.width * .7,
+                  maxHeight: context.isPortrait
+                      ? context.height * .050
+                      : context.height * .1,
+                  maxWidth: context.width * .7,
                 ),
                 fillColor: Colors.white,
                 filled: true,

@@ -12,6 +12,7 @@ import 'package:weather_app/views/widgets/day_overview.dart';
 import 'package:weather_app/views/widgets/weather_card.dart';
 
 import '../widgets/app_drawer.dart';
+import 'package:weather_app/config/context_extention.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,19 +24,23 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final mqSize = MediaQuery.of(context).size;
-    final bool isPortrate =
-        MediaQuery.of(context).orientation == Orientation.portrait;
+    //SECTION - initilzation of some variables
+
     var now = DateTime.now();
     var scrollController = ScrollController(initialScrollOffset: 92);
     var scaffoldKey = GlobalKey<ScaffoldState>();
-    return Scaffold(
+
+    return
+        //SECTION - Scaffold
+        Scaffold(
       key: scaffoldKey,
       drawer: const AppDrawerWidget(),
       backgroundColor: ProjectColors.purple,
+      //SECTION - AppBar
       appBar: AppBar(
         backgroundColor: ProjectColors.purple,
         elevation: 0,
+        //SECTION - AppBar Title text
         title: Text(
           "Kafr El-Tir`A El-Gedid".substring(0, 22),
           softWrap: false,
@@ -43,6 +48,7 @@ class _HomePageState extends State<HomePage> {
           maxLines: 1,
         ),
         centerTitle: true,
+        //SECTION - leading icon
         leading: InkWell(
           onTap: () {
             scaffoldKey.currentState!.openDrawer();
@@ -56,6 +62,7 @@ class _HomePageState extends State<HomePage> {
             child: const Icon(Icons.blur_on),
           ),
         ),
+        //SECTION - actions icon
         actions: [
           IconButton(
             onPressed: () async {
@@ -75,7 +82,9 @@ class _HomePageState extends State<HomePage> {
       body: ListView(
         children: [
           SizedBox(
-            height: isPortrate ? mqSize.height * .052 : mqSize.height * .15,
+            height: context.isPortrait
+                ? context.height * .052
+                : context.height * .15,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: const [
@@ -103,8 +112,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Row(
-            mainAxisAlignment:
-                isPortrate ? MainAxisAlignment.start : MainAxisAlignment.center,
+            mainAxisAlignment: context.isPortrait
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.center,
             children: [
               const Padding(
                 padding: EdgeInsets.all(8.0),
@@ -132,7 +142,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
-              mainAxisAlignment: isPortrate
+              mainAxisAlignment: context.isPortrait
                   ? MainAxisAlignment.spaceBetween
                   : MainAxisAlignment.spaceEvenly,
               children: [
@@ -196,7 +206,8 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SizedBox(
-            height: isPortrate ? mqSize.height * .28 : mqSize.height * .6,
+            height:
+                context.isPortrait ? context.height * .28 : context.height * .6,
             child: ListView(
               controller: scrollController,
               scrollDirection: Axis.horizontal,
@@ -234,8 +245,10 @@ class _HomePageState extends State<HomePage> {
           ),
           const Center(child: CircleWeatherTimeLine()),
           SizedBox(
-            height: isPortrate ? mqSize.height * .2 : mqSize.height * .5,
-            width: isPortrate ? mqSize.width * .85 : mqSize.width * .1,
+            height:
+                context.isPortrait ? context.height * .2 : context.height * .5,
+            width:
+                context.isPortrait ? context.width * .85 : context.width * .1,
             child: const DayOverviewWidget(),
           ),
         ],
