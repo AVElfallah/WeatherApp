@@ -1,4 +1,6 @@
 class AstronomyModel {
+  //REVIEW - this is astronomy model to make an object contain sun and moon statues
+  //SECTION - variables
   String? sunrise;
   String? sunset;
   String? moonrise;
@@ -6,6 +8,7 @@ class AstronomyModel {
   String? moonPhase;
   String? moonIllumination;
 
+//SECTION - constractor
   AstronomyModel({
     this.sunrise,
     this.sunset,
@@ -15,6 +18,7 @@ class AstronomyModel {
     this.moonIllumination,
   });
 
+//SECTION - factory
   AstronomyModel.fromJson(Map<String, dynamic> json) {
     sunrise = json['sunrise'];
     sunset = json['sunset'];
@@ -23,7 +27,7 @@ class AstronomyModel {
     moonPhase = json['moon_phase'];
     moonIllumination = json['moon_illumination'];
   }
-
+//SECTION - method
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
     data['sunrise'] = sunrise;

@@ -1,6 +1,9 @@
 import 'package:weather_app/model/weather_condition_model.dart';
 
 class ForecastHourModel {
+  //REVIEW -  this class contains all weather steate for custom hour
+
+  //SECTION - variables
   double? lastUpdatedEpoch;
   String? lastUpdated;
   double? tempC;
@@ -25,6 +28,7 @@ class ForecastHourModel {
   double? gustMph;
   double? gustKph;
 
+//SECTION - constractor
   ForecastHourModel({
     this.lastUpdatedEpoch,
     this.lastUpdated,
@@ -50,11 +54,7 @@ class ForecastHourModel {
     this.gustMph,
     this.gustKph,
   });
-
-  static fromListOFHourJson(List<dynamic> json) {
-    return json.map((e) => ForecastHourModel.fromJson(e)).toList();
-  }
-
+  //SECTION -  factories
   ForecastHourModel.fromJson(Map<String, dynamic> json) {
     lastUpdatedEpoch = json['last_updated_epoch'];
     lastUpdated = json['last_updated'];
@@ -81,6 +81,11 @@ class ForecastHourModel {
     uv = json['uv'];
     gustMph = json['gust_mph'];
     gustKph = json['gust_kph'];
+  }
+
+//SECTION - methods
+  static fromListOFHourJson(List<dynamic> json) {
+    return json.map((e) => ForecastHourModel.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {

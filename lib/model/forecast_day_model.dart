@@ -3,12 +3,15 @@ import 'package:weather_app/model/day_model.dart';
 import 'package:weather_app/model/forecast_hour_model.dart';
 
 class ForecastDayModel {
+  //REVIEW - this model is contain all day forcast
+  //SECTION - variables
+
   String? date;
   int? dateEpoch;
   DayModel? day;
   AstronomyModel? astro;
   List<ForecastHourModel>? hour;
-
+//SECTION - constractor
   ForecastDayModel({
     this.date,
     this.dateEpoch,
@@ -16,7 +19,7 @@ class ForecastDayModel {
     this.astro,
     this.hour,
   });
-
+//SECTION - factories
   ForecastDayModel.fromJson(Map<String, dynamic> json) {
     date = json['date'];
     dateEpoch = int.parse(json['date_epoch'].toString());
@@ -28,6 +31,7 @@ class ForecastDayModel {
         : null;
   }
 
+//SECTION - methods
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
     data['date'] = date;

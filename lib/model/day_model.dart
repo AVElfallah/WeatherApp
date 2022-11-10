@@ -1,6 +1,8 @@
 import 'package:weather_app/model/weather_condition_model.dart';
 
 class DayModel {
+  //REVIEW - this model is contain all  forcast for day
+  //SECTION -  define variables
   double? maxtempC;
   double? maxtempF;
   double? mintempC;
@@ -21,7 +23,7 @@ class DayModel {
   int? dailyChanceOfSnow;
   WeatherConditionModel? condition;
   double? uv;
-
+  //SECTION -  set constractor
   DayModel({
     this.maxtempC,
     this.maxtempF,
@@ -45,6 +47,7 @@ class DayModel {
     this.uv,
   });
 
+  //SECTION -  factories
   DayModel.fromJson(Map<String, dynamic> json) {
     maxtempC = json['maxtemp_c'];
     maxtempF = json['maxtemp_f'];
@@ -70,6 +73,7 @@ class DayModel {
     uv = json['uv'];
   }
 
+  //SECTION -  methods
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['maxtemp_c'] = maxtempC;
@@ -93,6 +97,7 @@ class DayModel {
     if (condition != null) {
       data['condition'] = condition!.toJson();
     }
+
     data['uv'] = uv;
     return data;
   }
