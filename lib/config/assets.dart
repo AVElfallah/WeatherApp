@@ -1,6 +1,11 @@
 // ignore_for_file: library_private_types_in_public_api
 
 class Assets {
+  getWeatherImage(bool isDay, String url) {
+    var code = url.substring(2).split('/').last.substring(0, 3);
+    return isDay ? dayImages.i[code] : nightImages.i[code];
+  }
+
   static _DayImages dayImages = _DayImages();
   static _NightImages nightImages = _NightImages();
   static const String umbrella = 'assets/images/umbrella.png';
@@ -11,6 +16,7 @@ class Assets {
   static const String sleepSun = 'assets/images/sleepsun.png';
   static const String sleepMoon = 'assets/images/sleepmoon.png';
   static const String wakeupMoon = 'assets/images/wakeupmoon.png';
+  static const String nerworkError = 'assets/images/network_error.png';
 }
 
 class _DayImages {
