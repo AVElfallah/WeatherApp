@@ -4,7 +4,7 @@ class ForecastHourModel {
   //REVIEW -  this class contains all weather steate for custom hour
 
   //SECTION - variables
-  double? lastUpdatedEpoch;
+  int? lastUpdatedEpoch;
   String? lastUpdated;
   double? tempC;
   double? tempF;
@@ -56,8 +56,9 @@ class ForecastHourModel {
   });
   //SECTION -  factories
   ForecastHourModel.fromJson(Map<String, dynamic> json) {
-    lastUpdatedEpoch = json['last_updated_epoch'];
-    lastUpdated = json['last_updated'];
+    lastUpdatedEpoch = json['last_updated_epoch'] ?? json['time_epoch'];
+
+    lastUpdated = json['last_updated'] ?? json['time'];
     tempC = json['temp_c'];
     tempF = json['temp_f'];
     isDay = json['is_day'] == 1;

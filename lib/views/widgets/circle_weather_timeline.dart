@@ -1,17 +1,29 @@
 import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/controllers/home_controller.dart';
 
 import '../../config/assets.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app/config/context_extention.dart';
 
-class CircleWeatherTimeLine extends StatelessWidget {
+class CircleWeatherTimeLine extends StatefulWidget {
   const CircleWeatherTimeLine({Key? key}) : super(key: key);
 
   @override
+  State<CircleWeatherTimeLine> createState() => _CircleWeatherTimeLineState();
+}
+
+class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final mqSize = MediaQuery.of(context).size;
-    final bool isPortrate =
-        MediaQuery.of(context).orientation == Orientation.portrait;
+    final watch = context.watch<HomePageController>();
     return CircleList(
+      showInitialAnimation: true,
       origin: const Offset(0, 0),
       centerWidget: Image.asset(
         Assets.planetearth,
@@ -26,10 +38,16 @@ class CircleWeatherTimeLine extends StatelessWidget {
             Assets.wakeupMoon,
             Assets.sleepMoon
           ];
-          var word = ['06:09 AM', '05:04 PM', '01:11 PM', '11:43 PM'];
+          var word = [
+            watch.dayModel.astro!.sunrise,
+            watch.dayModel.astro!.sunset,
+            watch.dayModel.astro!.moonrise,
+            watch.dayModel.astro!.moonset,
+          ];
           return SizedBox(
-            width: isPortrate ? mqSize.width * .25 : mqSize.width * 4,
-            height: isPortrate ? mqSize.height * .1 : mqSize.height * .25,
+            width: context.isPortrait ? context.width * .25 : context.width * 4,
+            height:
+                context.isPortrait ? context.height * .1 : context.height * .25,
             child: Column(
               children: [
                 Image.asset(
@@ -37,7 +55,7 @@ class CircleWeatherTimeLine extends StatelessWidget {
                   scale: 8,
                 ),
                 Text(
-                  word[index],
+                  word[index]!,
                   style: const TextStyle(
                     color: Colors.white,
                   ),

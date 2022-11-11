@@ -1,45 +1,17 @@
+import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/colors/colors.dart';
 import 'package:weather_app/config/assets.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app/config/context_extention.dart';
+import 'package:weather_app/controllers/home_controller.dart';
+import 'package:weather_app/model/forecast_hour_model.dart';
 
 class DayOverviewWidget extends StatelessWidget {
   const DayOverviewWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var mqSize = MediaQuery.of(context).size;
-    final bool isPortrate =
-        MediaQuery.of(context).orientation == Orientation.portrait;
-    var sizedBox = SizedBox(
-      width: mqSize.width * .2,
-      height: mqSize.height * .03,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          const Text(
-            '21°C',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Image.asset(
-            Assets.waterdrops,
-            scale: 11,
-          ),
-          const Text(
-            '2 PM',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-          ),
-        ],
-      ),
-    );
+    var watch = context.watch<HomePageController>();
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
@@ -56,15 +28,55 @@ class DayOverviewWidget extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.all(25),
+        children: watch.dayModel.hour!
+            .map((hour) => HoursCardWidget(
+                  hourModel: hour,
+                ))
+            .toList(),
+      ),
+    );
+  }
+}
+
+class HoursCardWidget extends StatelessWidget {
+  const HoursCardWidget({Key? key, this.hourModel}) : super(key: key);
+  final ForecastHourModel? hourModel;
+  @override
+  Widget build(BuildContext context) {
+    var date = DateTime.fromMillisecondsSinceEpoch(
+        hourModel!.lastUpdatedEpoch! * 1000);
+    return SizedBox(
+      width: context.width * .2,
+      height: context.height * .03,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          sizedBox,
-          sizedBox,
-          sizedBox,
-          sizedBox,
-          sizedBox,
-          sizedBox,
-          sizedBox,
-          sizedBox,
+          Text(
+            '${hourModel!.tempC}°C',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Image.asset(
+            Assets().getWeatherImage(
+              hourModel!.isDay!,
+              hourModel!.condition!.icon!,
+            ),
+            scale: 11,
+          ),
+          Text(
+            DateTimeFormat.format(date, format: 'h A'),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );

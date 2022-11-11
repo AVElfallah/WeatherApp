@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/config/routes.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
         secondaryHeaderColor: Colors.white,
       ),
       routes: Routes().mapOFRoutes,
-      initialRoute: Routes.homePage.name,
+      initialRoute: Routes.splashPage.name,
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/card/gf_card.dart';
-import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 
 import '../../colors/colors.dart';
 
@@ -36,7 +35,8 @@ class WeatherCardWidget extends StatelessWidget {
           children: [
             Text(
               subBoldTitle!,
-              maxLines: 1,
+              maxLines: 2,
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
