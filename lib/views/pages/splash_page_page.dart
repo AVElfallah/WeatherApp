@@ -19,9 +19,14 @@ class SplashPage extends StatelessWidget {
         return Scaffold(
           backgroundColor: ProjectColors.purple,
           appBar: PreferredSize(
-            preferredSize: Size(double.infinity, context.height * .08),
+            preferredSize: Size(
+              double.infinity,
+              context.height * .08,
+            ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 38.0),
+              padding: const EdgeInsets.only(
+                top: 38.0,
+              ),
               child: IconStepper(
                 enableNextPreviousButtons: false,
                 enableStepTapping: false,

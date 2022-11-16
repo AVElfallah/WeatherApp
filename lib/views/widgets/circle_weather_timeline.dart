@@ -1,5 +1,6 @@
 import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/c_code.dart';
 import 'package:weather_app/controllers/home_controller.dart';
 
 import '../../config/assets.dart';
@@ -45,9 +46,16 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
             watch.dayModel.astro!.moonset,
           ];
           return SizedBox(
-            width: context.isPortrait ? context.width * .25 : context.width * 4,
-            height:
-                context.isPortrait ? context.height * .1 : context.height * .25,
+            width: conditionGetter(
+              context.isPortrait,
+              context.width * .25,
+              context.width * .25,
+            ),
+            height: conditionGetter(
+              context.isPortrait,
+              context.height * .1,
+              context.height * .25,
+            ),
             child: Column(
               children: [
                 Image.asset(

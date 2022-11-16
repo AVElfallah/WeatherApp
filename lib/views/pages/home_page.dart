@@ -1,6 +1,7 @@
 import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_app/c_code.dart';
 
 import 'package:weather_app/colors/colors.dart';
 import 'package:weather_app/config/assets.dart';
@@ -44,7 +45,10 @@ class _HomePageState extends State<HomePage> {
         //SECTION - AppBar
 
         appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, 60),
+          preferredSize: const Size(
+            double.infinity,
+            60,
+          ),
           child: HomePageAppBarWidget(
             onTap: () {
               _scaffoldKey.currentState!.openDrawer();
@@ -56,20 +60,26 @@ class _HomePageState extends State<HomePage> {
           return ListView(
             children: [
               SizedBox(
-                height: context.isPortrait
-                    ? context.height * .052
-                    : context.height * .15,
+                height: conditionGetter<double>(
+                  context.isPortrait,
+                  context.height * .052,
+                  context.height * .15,
+                ),
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
                     InkWell(
                       onTap: () {},
                       child: const Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(
+                          5,
+                        ),
                         child: Chip(
                           label: Text(
                             "Today",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                           backgroundColor: ProjectColors.orange,
                         ),
@@ -80,11 +90,15 @@ class _HomePageState extends State<HomePage> {
                         //TODO - add function
                       },
                       child: const Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(
+                          5,
+                        ),
                         child: Chip(
                           label: Text(
                             "Tomorrow",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                           backgroundColor: ProjectColors.purpleLight,
                         ),
@@ -94,12 +108,16 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Row(
-                mainAxisAlignment: context.isPortrait
-                    ? MainAxisAlignment.start
-                    : MainAxisAlignment.center,
+                mainAxisAlignment: conditionGetter(
+                  context.isPortrait,
+                  MainAxisAlignment.start,
+                  MainAxisAlignment.center,
+                ),
                 children: [
                   const Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(
+                      8.0,
+                    ),
                     child: Text(
                       'Today -',
                       style: TextStyle(
@@ -111,7 +129,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Text(
-                    DateTimeFormat.format(now, format: "D, d F"),
+                    DateTimeFormat.format(
+                      now,
+                      format: "D, d F",
+                    ),
                     style: const TextStyle(
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w400,
@@ -122,11 +143,15 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
                 child: Row(
-                  mainAxisAlignment: context.isPortrait
-                      ? MainAxisAlignment.spaceBetween
-                      : MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: conditionGetter(
+                    context.isPortrait,
+                    MainAxisAlignment.spaceBetween,
+                    MainAxisAlignment.spaceEvenly,
+                  ),
                   children: [
                     Image.asset(
                       Assets().getWeatherImage(
@@ -197,9 +222,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(
-                height: context.isPortrait
-                    ? context.height * .28
-                    : context.height * .6,
+                height: conditionGetter(
+                  context.isPortrait,
+                  context.height * .28,
+                  context.height * .6,
+                ),
                 child: ListView(
                   controller:
                       context.watch<HomePageController>().scrollController,
@@ -225,7 +252,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(
+                  top: 20,
+                ),
                 child: Center(
                   child: Text(
                     'Sun & Moon Status',
@@ -237,14 +266,20 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              const Center(child: CircleWeatherTimeLine()),
+              const Center(
+                child: CircleWeatherTimeLine(),
+              ),
               SizedBox(
-                height: context.isPortrait
-                    ? context.height * .2
-                    : context.height * .5,
-                width: context.isPortrait
-                    ? context.width * .85
-                    : context.width * .1,
+                height: conditionGetter(
+                  context.isPortrait,
+                  context.height * .2,
+                  context.height * .5,
+                ),
+                width: conditionGetter(
+                  context.isPortrait,
+                  context.width * .85,
+                  context.width * .1,
+                ),
                 child: const DayOverviewWidget(),
               ),
             ],

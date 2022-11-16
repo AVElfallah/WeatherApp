@@ -14,10 +14,16 @@ class Routes {
   };
 
 //SECTION - application routes
-  static const RouteModel homePage =
-      RouteModel(name: "/home", page: HomePage());
-  static const RouteModel searchPage =
-      RouteModel(name: "/search", page: SearchPage());
-  static const RouteModel splashPage =
-      RouteModel(name: '/splash', page: SplashPage());
+  static const RouteModel homePage = RouteModel(
+    name: "/home",
+    page: HomePage(),
+  );
+  static const RouteModel searchPage = RouteModel(
+    name: "/search",
+    page: SearchPage(),
+  );
+  static const RouteModel splashPage = RouteModel(
+    name: '/splash',
+    page: SplashPage(),
+  );
 }

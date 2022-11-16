@@ -35,7 +35,9 @@ class AppDrawerWidget extends StatelessWidget {
                   25,
                 ),
               ),
-              color: ProjectColors.purpleLight.withOpacity(.1),
+              color: ProjectColors.purpleLight.withOpacity(
+                .1,
+              ),
               content: const Text(
                 'Night',
                 style: TextStyle(
@@ -61,7 +63,9 @@ class AppDrawerWidget extends StatelessWidget {
             ),
             GFListTile(
               onTap: () {
-                Navigator.of(context).pushNamed(Routes.searchPage.name!);
+                Navigator.of(context).pushNamed(
+                  Routes.searchPage.name!,
+                );
               },
               icon: const Icon(
                 Icons.search,
