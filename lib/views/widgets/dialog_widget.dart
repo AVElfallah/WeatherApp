@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/card/gf_card.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
-import 'package:getwidget/position/gf_position.dart';
 import 'package:weather_app/config/assets.dart';
 
 class WeatherCustomDailog extends StatelessWidget {
