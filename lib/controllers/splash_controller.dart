@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:location/location.dart';
 
 import 'package:flutter/material.dart';
@@ -21,74 +23,71 @@ class SplashPageController extends ChangeNotifier {
   int stateIndex = SplashState.checkConnection.index;
 
   bool isLoaded = true;
-  String stateText = 'check network connection..';
-  bool _conn = false;
   var _locP = PermissionStatus.denied;
 
-  void startEvents() {
+  void startEvents() async {
     isLoaded = true;
     notifyListeners();
-    debugPrint('start');
-    getConnection().whenComplete(() {
-      if (_conn) {
-        changePage(SplashState.getLocation);
-        getLocation().whenComplete(() {
-          if (_locP == PermissionStatus.granted) {
-            changePage(SplashState.getForcastes);
-            getForcastes();
-          }
-        });
+    debugPrint('start event');
+    var qc = <FutureOr Function()>[
+      () => getConnection(),
+      () => getLocation(),
+      () => getForcastes()
+    ];
+    for (var event in qc) {
+      var x = await Future.delayed(
+          const Duration(milliseconds: 1600), (() => event.call()));
+      if (x != null) {
+        changePage(SplashState.values[(x as SplashState).index + 1]);
       }
-    });
+    }
   }
 
   void changePage(SplashState state) {
-    const labels = [
-      'check network connection..',
-      'get your current location..',
-      'geting forcastes & open the app..',
-    ];
     stateIndex = state.index;
-    stateText = labels[stateIndex];
+
     notifyListeners();
   }
 
   Future getLocation() async {
     _locP = await LocationPermissionRepo.instance.getLocationPermission();
     if (_locP == PermissionStatus.granted) {
+      notifyListeners();
+      return SplashState.getLocation;
     } else {
       WeatherCustomDailog.show(
         title: 'Permission Error',
         context: context!,
       );
       isLoaded = false;
-      _conn = false;
-      changePage(SplashState.checkConnection);
       notifyListeners();
+      return SplashState.checkConnection;
     }
   }
 
   Future getConnection() async {
     if (await NetworkConnection.instance.checkConnection()) {
-      _conn = true;
+      notifyListeners();
+      return SplashState.checkConnection;
     } else {
       WeatherCustomDailog.show(
         title: 'Network error check your connection',
         context: context!,
       );
       isLoaded = false;
-      _conn = false;
-      changePage(SplashState.checkConnection);
       notifyListeners();
+      return SplashState.checkConnection;
     }
   }
 
-  void getForcastes() async {
+  FutureOr<void> getForcastes() async {
     var locData = await Location().getLocation();
     var longlat = '${locData.latitude},${locData.longitude}';
     var dayForecast = await WeatherRepository().getTodayForecast(longlat);
     var currentForcast = await WeatherRepository().getCurrentForecast(longlat);
     var location = await WeatherRepository().getLocationInfo(longlat);
+    print('${location.lat} ${location.lon}');
+
     Navigator.pushReplacementNamed(
       context!,
       Routes.homePage.name!,

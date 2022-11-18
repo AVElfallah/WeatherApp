@@ -17,6 +17,7 @@ class Assets {
   static const String sleepMoon = 'assets/images/sleepmoon.png';
   static const String wakeupMoon = 'assets/images/wakeupmoon.png';
   static const String nerworkError = 'assets/images/network_error.png';
+  static const String checkConnection = 'assets/images/check_connection.jpg';
 }
 
 class _DayImages {

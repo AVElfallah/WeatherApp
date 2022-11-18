@@ -37,6 +37,8 @@ dependencies:
   connectivity_plus: 
   location:
   im_stepper: ^1.0.1+1
+  animated_text_kit: 
+  skeletons: 
 
 
 
