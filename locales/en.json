@@ -1,0 +1,22 @@
+{
+ 
+    "app title": "Weather App",
+    "language": "Language",
+    "search": "Search",
+    "day": "Day",
+    "night": "Night",
+    "today":"Today",
+    "tomorrow": "Tomorrow",
+    "sun_moon_status": "Sun & Moon Status",
+    "pm": "PM",
+    "am": "AM",
+    "chance_of_rain": "Chance of rain",
+    "wind_speed": "Wind Speed",
+    "humidity": "Humidity",
+    "max": "Max",
+    "min": "Min",
+    "check network connection": "check network connection",
+    "get your current location": "get your current location",
+    "geting forcastes & open the app": "geting forcastes & open the app"
+  
+}

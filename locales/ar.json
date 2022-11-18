@@ -1,0 +1,24 @@
+{
+ 
+    "app title": "تطبيق الطقس",
+    "language": "اللغة",
+    "search": "البحث",
+    "day": "صباحاً",
+    "night": "ليلاً",
+    "today":"اليوم",
+    "tomorrow": "غداً",
+    "sun_moon_status": "ظهور و مغيب الشمس و القمر",
+    "pm": "مـ",
+    "am": "صـ",
+    "chance_of_rain": "احتمالية المطر",
+    "wind_speed": "سرعة الرياح",
+    "humidity": "الرطوبة",
+    "max": "العظمي",
+    "min": "الصغري"
+    ,
+        "check network connection": "فحص حالة الاتصال بالشبكة",
+        "get your current location": "الوصول الى موقعك الحالي",
+        "geting forcastes & open the app": "الحصول علي التوقعات و فتح التطبيق"
+      
+  
+}
