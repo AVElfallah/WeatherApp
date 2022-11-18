@@ -29,15 +29,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   provider: 
-  date_time_format: ^2.0.1
   getwidget: ^3.0.1
   circle_list: ^1.0.5
   dio: ^4.0.6
-  connectivity_plus: 
   location:
   im_stepper: ^1.0.1+1
   animated_text_kit: 
+  intl: 
   skeletons: 
 
 
@@ -73,6 +74,8 @@ flutter:
     - assets/images/day/
     - assets/images/night/
     - assets/images/
+    - locales/ar.json
+    - locales/en.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
