@@ -13,6 +13,8 @@ class HomePageController extends ChangeNotifier {
   ForecastDayModel dayModel;
   ForecastHourModel current;
   LocationModel locationModel;
+
+  CurrentForecast forecast = CurrentForecast.today;
   ScrollController scrollController = ScrollController(initialScrollOffset: 92);
   bool isLoading = false;
   @override
@@ -21,7 +23,20 @@ class HomePageController extends ChangeNotifier {
     debugPrint('dispose homepage controller');
   }
 
-  void getTomorrowForecast(String lang) async {
+  changeCurrentForecast(String lang, [forecastG]) {
+    if (forecastG == null) {
+      forecastG = forecast;
+    } else {
+      forecast = forecastG;
+    }
+    if (forecast == CurrentForecast.today) {
+      _getTodayForecast(lang);
+    } else {
+      _getTomorrowForecast(lang);
+    }
+  }
+
+  void _getTomorrowForecast(String lang) async {
     isLoading = true;
     var weather = WeatherRepository.instance;
     var locData = await Location().getLocation(); //get location
@@ -37,7 +52,7 @@ class HomePageController extends ChangeNotifier {
     );
   }
 
-  void getTodayForecast(String lang) async {
+  void _getTodayForecast(String lang) async {
     isLoading = true;
     var weather = WeatherRepository.instance;
 
@@ -60,4 +75,9 @@ class HomePageController extends ChangeNotifier {
       },
     );
   }
+}
+
+enum CurrentForecast {
+  today,
+  tomorrow,
 }

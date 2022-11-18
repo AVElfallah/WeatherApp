@@ -80,8 +80,9 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
               InkWell(
                 onTap: () {
                   //SECTION -  Today button to get today forecast
-                  context.read<HomePageController>().getTodayForecast(
+                  context.read<HomePageController>().changeCurrentForecast(
                         context.readAppCtrl.appLanguage.languageCode,
+                        CurrentForecast.today,
                       );
                   setState(
                     () {
@@ -110,9 +111,9 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
               ),
               InkWell(
                 onTap: () {
-                  context.read<HomePageController>().getTomorrowForecast(
-                        context.readAppCtrl.appLanguage.languageCode,
-                      );
+                  context.read<HomePageController>().changeCurrentForecast(
+                      context.readAppCtrl.appLanguage.languageCode,
+                      CurrentForecast.tomorrow);
                   setState(
                     () {
                       isToday = false;
