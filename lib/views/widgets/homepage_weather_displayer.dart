@@ -1,9 +1,7 @@
-import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/shimmer/gf_shimmer.dart';
 import 'package:weather_app/config/context_extention.dart';
 import 'package:weather_app/views/widgets/weather_card.dart';
-
+import 'package:intl/intl.dart';
 import '../../c_code.dart';
 import '../../config/assets.dart';
 import '../../model/forecast_day_model.dart';
@@ -23,8 +21,15 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
   final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
+    //get date time in iso format
     var dateTime =
         DateTime.fromMillisecondsSinceEpoch(current.lastUpdatedEpoch! * 1000);
+
+    //reformation data time
+    var dateFormat =
+        DateFormat.MMMEd(context.watchAppCtrl.appLanguage.languageCode)
+            .format(dateTime);
+
     return ListView(
       children: [
         Row(
@@ -39,7 +44,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
                 8.0,
               ),
               child: Text(
-                dateTime.isBefore(DateTime.now()) ? 'Today -' : "Tomorrow -",
+                '${dateTime.isBefore(DateTime.now()) ? context.translate('today')! : context.translate('tomorrow')!} -',
                 style: const TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
@@ -49,10 +54,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
               ),
             ),
             Text(
-              DateTimeFormat.format(
-                dateTime,
-                format: "D, d F",
-              ),
+              dateFormat,
               style: const TextStyle(
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.w400,
@@ -64,7 +66,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 20,
+            horizontal: 5,
           ),
           child: Row(
             mainAxisAlignment: conditionGetter(
@@ -112,7 +114,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
                         color: Colors.white,
                       ),
                       Text(
-                        'Max:${dayModel.day!.maxtempC}°C',
+                        '${context.translate('max')}:${dayModel.day!.maxtempC}°C',
                         style: const TextStyle(
                           fontSize: 11.5,
                           color: Colors.white,
@@ -127,7 +129,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
                         color: Colors.white,
                       ),
                       Text(
-                        'Min:${dayModel.day!.mintempC}°C',
+                        '${context.translate('min')}:${dayModel.day!.mintempC}°C',
                         style: const TextStyle(
                           fontSize: 11.5,
                           color: Colors.white,
@@ -153,30 +155,30 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
             children: [
               WeatherCardWidget(
                 assetsImage: Assets.umbrella,
-                title: 'Chance of rain',
+                title: context.translate('chance_of_rain'),
                 subBoldTitle: '${dayModel.day!.dailyChanceOfRain}%',
               ),
               WeatherCardWidget(
                 assetsImage: Assets.freshair,
-                title: 'Wind Speed',
+                title: context.translate('wind_speed'),
                 subBoldTitle: '${current.windDir} ${current.windKph} km/h',
               ),
               WeatherCardWidget(
                 assetsImage: Assets.waterdrops,
-                title: 'Humidity',
+                title: context.translate('humidity'),
                 subBoldTitle: '${current.humidity}%',
               ),
             ],
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.only(
+        Padding(
+          padding: const EdgeInsets.only(
             top: 20,
           ),
           child: Center(
             child: Text(
-              'Sun & Moon Status',
-              style: TextStyle(
+              context.translate("sun_moon_status")!,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,

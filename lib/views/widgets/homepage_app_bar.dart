@@ -4,6 +4,7 @@ import 'package:weather_app/config/context_extention.dart';
 
 import '../../c_code.dart';
 import '../../colors/colors.dart';
+import '../../controllers/application_controller.dart';
 import '../../controllers/home_controller.dart';
 
 class HomePageAppBarWidget extends StatefulWidget {
@@ -49,7 +50,10 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
       //SECTION - actions icon
       actions: [
         IconButton(
-          onPressed: () async {},
+          onPressed: () async {
+            //TODO -  add function
+            context.read<AppController>().changeAppLocale(AppLang.ar);
+          },
           icon: const Icon(
             Icons.compare_arrows_sharp,
             size: 32,
@@ -75,7 +79,10 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
             children: [
               InkWell(
                 onTap: () {
-                  context.read<HomePageController>().getTodayForecast();
+                  //SECTION -  Today button to get today forecast
+                  context.read<HomePageController>().getTodayForecast(
+                        context.readAppCtrl.appLanguage.languageCode,
+                      );
                   setState(
                     () {
                       isToday = true;
@@ -87,9 +94,9 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
                     5,
                   ),
                   child: Chip(
-                    label: const Text(
-                      "Today",
-                      style: TextStyle(
+                    label: Text(
+                      context.translate('today')!,
+                      style: const TextStyle(
                         color: Colors.white,
                       ),
                     ),
@@ -103,19 +110,23 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
               ),
               InkWell(
                 onTap: () {
-                  context.read<HomePageController>().getTomorrowForecast();
-                  setState(() {
-                    isToday = false;
-                  });
+                  context.read<HomePageController>().getTomorrowForecast(
+                        context.readAppCtrl.appLanguage.languageCode,
+                      );
+                  setState(
+                    () {
+                      isToday = false;
+                    },
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(
                     5,
                   ),
                   child: Chip(
-                    label: const Text(
-                      "Tomorrow",
-                      style: TextStyle(
+                    label: Text(
+                      context.translate("tomorrow")!,
+                      style: const TextStyle(
                         color: Colors.white,
                       ),
                     ),

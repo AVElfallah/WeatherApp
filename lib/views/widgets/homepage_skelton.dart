@@ -14,10 +14,18 @@ class HomepageSkeltonWidget extends StatelessWidget {
     return Skeleton(
       isLoading: true,
       duration: const Duration(milliseconds: 7200),
-      shimmerGradient: const LinearGradient(
+      shimmerGradient: LinearGradient(
         colors: [
           ProjectColors.purpleLight,
           Colors.white70,
+          ProjectColors.purpleLight.withOpacity(
+            .65,
+          ),
+        ],
+        stops: const [
+          0.1,
+          0.5,
+          0.9,
         ],
         begin: Alignment.bottomCenter,
       ),
@@ -307,7 +315,7 @@ class HomepageSkeltonWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: Text(''),
+      child: const Text(''),
     );
   }
 }

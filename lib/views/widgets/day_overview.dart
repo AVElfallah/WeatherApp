@@ -1,8 +1,9 @@
-import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/colors/colors.dart';
 import 'package:weather_app/config/assets.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart' as intl;
+
 import 'package:weather_app/config/context_extention.dart';
 import 'package:weather_app/controllers/home_controller.dart';
 import 'package:weather_app/model/forecast_hour_model.dart';
@@ -45,6 +46,10 @@ class HoursCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var date = DateTime.fromMillisecondsSinceEpoch(
         hourModel!.lastUpdatedEpoch! * 1000);
+    var formater =
+        intl.DateFormat.jm(context.watchAppCtrl.appLanguage.languageCode)
+            .format(date);
+
     return SizedBox(
       width: context.width * .2,
       height: context.height * .03,
@@ -70,7 +75,7 @@ class HoursCardWidget extends StatelessWidget {
             scale: 11,
           ),
           Text(
-            DateTimeFormat.format(date, format: 'h A'),
+            formater,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 14,

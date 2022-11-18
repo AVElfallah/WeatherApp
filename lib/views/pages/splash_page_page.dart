@@ -4,7 +4,6 @@ import 'package:getwidget/getwidget.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/colors/colors.dart';
-import 'package:weather_app/config/assets.dart';
 import 'package:weather_app/config/context_extention.dart';
 import 'package:weather_app/controllers/splash_controller.dart';
 
@@ -68,7 +67,9 @@ class SplashPage extends StatelessWidget {
                       child: Center(
                         child: TextButton.icon(
                           onPressed: () {
-                            context.read<SplashPageController>().startEvents();
+                            context.read<SplashPageController>().startEvents(
+                                  context.watchAppCtrl.appLanguage.languageCode,
+                                );
                           },
                           icon: const Icon(
                             Icons.refresh,
@@ -91,9 +92,10 @@ class SplashPage extends StatelessWidget {
                           ),
                           child: AnimatedTextKit(
                             animatedTexts: [
-                              'check network connection',
-                              'get your current location',
-                              'geting forcastes & open the app',
+                              context.translate('check network connection')!,
+                              context.translate('get your current location')!,
+                              context.translate(
+                                  'geting forcastes & open the app')!,
                             ]
                                 .map(
                                   (txt) => RotateAnimatedText(

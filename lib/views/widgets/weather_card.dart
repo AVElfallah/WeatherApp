@@ -15,23 +15,19 @@ class WeatherCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var mqSize = MediaQuery.of(context).size;
     return SizedBox(
-      width: mqSize.width * .482,
+      width: mqSize.width * .485,
       child: GFCard(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
         color: ProjectColors.purpleLight,
-        /*   title: GFListTile(
-          title: Image.asset(
-            assetsImage!,
-          ),
-        ), */
         image: Image.asset(
           assetsImage!,
           scale: 5,
         ),
         showImage: true,
         content: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               subBoldTitle!,
@@ -40,7 +36,7 @@ class WeatherCardWidget extends StatelessWidget {
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: 18,
               ),
             ),
             Text(
@@ -48,7 +44,7 @@ class WeatherCardWidget extends StatelessWidget {
               maxLines: 1,
               style: const TextStyle(
                 color: Colors.white,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.bold,
                 fontSize: 15,
               ),
             ),

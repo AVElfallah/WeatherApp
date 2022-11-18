@@ -2,7 +2,6 @@ import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/c_code.dart';
 import 'package:weather_app/controllers/home_controller.dart';
-
 import '../../config/assets.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/config/context_extention.dart';
@@ -53,7 +52,7 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
             ),
             height: conditionGetter(
               context.isPortrait,
-              context.height * .1,
+              context.height * .112,
               context.height * .25,
             ),
             child: Column(
@@ -63,7 +62,9 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
                   scale: 8,
                 ),
                 Text(
-                  word[index]!,
+                  word[index]!.substring(0, 6) +
+                      context
+                          .translate(word[index]!.substring(6).toLowerCase())!,
                   style: const TextStyle(
                     color: Colors.white,
                   ),

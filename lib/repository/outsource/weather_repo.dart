@@ -8,34 +8,42 @@ import 'package:weather_app/model/location_model.dart';
 import '../../model/forecast_day_model.dart';
 
 class WeatherRepository {
-  Future<ForecastDayModel> getTodayForecast(String location) async {
+  WeatherRepository._();
+  static final _instance = WeatherRepository._();
+  static WeatherRepository get instance => _instance;
+
+  Future<ForecastDayModel> getTodayForecast(String location,
+      [String lang = 'en']) async {
     var v = await Dio().get(
-      'http://api.weatherapi.com/v1/forecast.json?key=${Appconfig.apiKey}&q=$location&days=1&aqi=no&alerts=yes',
+      'http://api.weatherapi.com/v1/forecast.json?key=${Appconfig.apiKey}&q=$location&days=1&aqi=no&alerts=yes&lang=$lang',
     );
     var res = const JsonDecoder().convert(v.toString());
     return ForecastDayModel.fromJson(res['forecast']['forecastday'][0]);
   }
 
-  Future<ForecastDayModel> getTomorrowForecast(String location) async {
+  Future<ForecastDayModel> getTomorrowForecast(String location,
+      [String lang = 'en']) async {
     var v = await Dio().get(
-      'http://api.weatherapi.com/v1/forecast.json?key=${Appconfig.apiKey}&q=$location&days=2&aqi=no&alerts=yes',
+      'http://api.weatherapi.com/v1/forecast.json?key=${Appconfig.apiKey}&q=$location&days=2&aqi=no&alerts=yes&lang=$lang',
     );
     var res = const JsonDecoder().convert(v.toString());
     return ForecastDayModel.fromJson(res['forecast']['forecastday'][1]);
   }
 
-  Future<ForecastHourModel> getCurrentForecast(String location) async {
+  Future<ForecastHourModel> getCurrentForecast(String location,
+      [String lang = 'en']) async {
     var v = await Dio().get(
-      'http://api.weatherapi.com/v1/forecast.json?key=${Appconfig.apiKey}&q=$location&days=1&aqi=no&alerts=yes',
+      'http://api.weatherapi.com/v1/forecast.json?key=${Appconfig.apiKey}&q=$location&days=1&aqi=no&alerts=yes&lang=$lang',
     );
     var res = const JsonDecoder().convert(v.toString());
 
     return ForecastHourModel.fromJson(res['current']);
   }
 
-  Future<LocationModel> getLocationInfo(String location) async {
+  Future<LocationModel> getLocationInfo(String location,
+      [String lang = 'en']) async {
     var v = await Dio().get(
-      'http://api.weatherapi.com/v1/forecast.json?key=${Appconfig.apiKey}&q=$location&days=1&aqi=no&alerts=yes',
+      'http://api.weatherapi.com/v1/forecast.json?key=${Appconfig.apiKey}&q=$location&days=1&aqi=no&alerts=yes&lang=$lang',
     );
     var res = const JsonDecoder().convert(v.toString());
 

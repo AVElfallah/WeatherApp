@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:weather_app/model/forecast_hour_model.dart';
 import 'package:weather_app/model/location_model.dart';
 import 'package:weather_app/repository/outsource/weather_repo.dart';
@@ -20,11 +21,13 @@ class HomePageController extends ChangeNotifier {
     debugPrint('dispose homepage controller');
   }
 
-  void getTomorrowForecast() async {
+  void getTomorrowForecast(String lang) async {
     isLoading = true;
-    var weather = WeatherRepository();
+    var weather = WeatherRepository.instance;
+    var locData = await Location().getLocation(); //get location
+    var longlat = '${locData.latitude},${locData.longitude}'; //set location var
     notifyListeners();
-    weather.getTomorrowForecast(locationModel.name).then(
+    weather.getTomorrowForecast(longlat, lang).then(
       (day) {
         dayModel = day;
         current = day.hour!.first;
@@ -34,15 +37,23 @@ class HomePageController extends ChangeNotifier {
     );
   }
 
-  void getTodayForecast() async {
+  void getTodayForecast(String lang) async {
     isLoading = true;
-    var weather = WeatherRepository();
+    var weather = WeatherRepository.instance;
+
+    var locData = await Location().getLocation(); //get location
+    var longlat = '${locData.latitude},${locData.longitude}'; //set location var
     notifyListeners();
-    weather.getTodayForecast(locationModel.name).then(
+    weather.getTodayForecast(longlat, lang).then(
       (day) async {
         dayModel = day;
         current = await weather.getCurrentForecast(
           locationModel.name,
+          lang,
+        );
+        locationModel = await weather.getLocationInfo(
+          longlat,
+          lang,
         );
         isLoading = false;
         notifyListeners();

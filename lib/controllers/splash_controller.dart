@@ -16,8 +16,8 @@ enum SplashState {
 }
 
 class SplashPageController extends ChangeNotifier {
-  SplashPageController(this.context) {
-    startEvents();
+  SplashPageController(this.context, [String lang = 'en']) {
+    startEvents(lang);
   }
   final BuildContext? context;
   int stateIndex = SplashState.checkConnection.index;
@@ -25,18 +25,20 @@ class SplashPageController extends ChangeNotifier {
   bool isLoaded = true;
   var _locP = PermissionStatus.denied;
 
-  void startEvents() async {
+  void startEvents(String lang) async {
     isLoaded = true;
     notifyListeners();
     debugPrint('start event');
     var qc = <FutureOr Function()>[
       () => getConnection(),
       () => getLocation(),
-      () => getForcastes()
+      () => getForcastes(lang)
     ];
     for (var event in qc) {
       var x = await Future.delayed(
-          const Duration(milliseconds: 1600), (() => event.call()));
+        const Duration(milliseconds: 1600),
+        (() => event.call()),
+      );
       if (x != null) {
         changePage(SplashState.values[(x as SplashState).index + 1]);
       }
@@ -80,13 +82,23 @@ class SplashPageController extends ChangeNotifier {
     }
   }
 
-  FutureOr<void> getForcastes() async {
-    var locData = await Location().getLocation();
-    var longlat = '${locData.latitude},${locData.longitude}';
-    var dayForecast = await WeatherRepository().getTodayForecast(longlat);
-    var currentForcast = await WeatherRepository().getCurrentForecast(longlat);
-    var location = await WeatherRepository().getLocationInfo(longlat);
-    print('${location.lat} ${location.lon}');
+  FutureOr<void> getForcastes(String lang) async {
+    //get app lang
+    var locData = await Location().getLocation(); //get location
+    var longlat = '${locData.latitude},${locData.longitude}'; //set location var
+    var weather = WeatherRepository.instance;
+    var dayForecast = await weather.getTodayForecast(
+      longlat,
+      lang,
+    );
+    var currentForcast = await weather.getCurrentForecast(
+      longlat,
+      lang,
+    );
+    var location = await weather.getLocationInfo(
+      longlat,
+      lang,
+    );
 
     Navigator.pushReplacementNamed(
       context!,
