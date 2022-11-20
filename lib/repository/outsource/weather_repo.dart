@@ -30,6 +30,15 @@ class WeatherRepository {
     return ForecastDayModel.fromJson(res['forecast']['forecastday'][1]);
   }
 
+  Future<List<LocationModel>> search(String word, [String lang = 'en']) async {
+    var v = await Dio().get(
+      'http://api.weatherapi.com/v1/search.json?key=${Appconfig.apiKey}&q=$word&lang=$lang',
+    );
+
+    var list = [for (var i in v.data) LocationModel.fromJson(i)];
+    return list;
+  }
+
   Future<ForecastHourModel> getCurrentForecast(String location,
       [String lang = 'en']) async {
     var v = await Dio().get(

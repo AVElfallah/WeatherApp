@@ -1,14 +1,14 @@
 import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/c_code.dart';
-import 'package:weather_app/controllers/home_controller.dart';
+import 'package:weather_app/model/astronomy_model.dart';
 import '../../config/assets.dart';
-import 'package:provider/provider.dart';
 import 'package:weather_app/config/context_extention.dart';
 
 class CircleWeatherTimeLine extends StatefulWidget {
-  const CircleWeatherTimeLine({Key? key}) : super(key: key);
-
+  const CircleWeatherTimeLine({Key? key, required this.astro})
+      : super(key: key);
+  final AstronomyModel astro;
   @override
   State<CircleWeatherTimeLine> createState() => _CircleWeatherTimeLineState();
 }
@@ -21,7 +21,6 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
 
   @override
   Widget build(BuildContext context) {
-    final watch = context.watch<HomePageController>();
     return CircleList(
       showInitialAnimation: true,
       origin: const Offset(0, 0),
@@ -39,10 +38,10 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
             Assets.sleepMoon
           ];
           var word = [
-            watch.dayModel.astro!.sunrise,
-            watch.dayModel.astro!.sunset,
-            watch.dayModel.astro!.moonrise,
-            watch.dayModel.astro!.moonset,
+            widget.astro.sunrise,
+            widget.astro.sunset,
+            widget.astro.moonrise,
+            widget.astro.moonset,
           ];
           return SizedBox(
             width: conditionGetter(
@@ -63,8 +62,9 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
                 ),
                 Text(
                   word[index]!.substring(0, 6) +
-                      context
-                          .translate(word[index]!.substring(6).toLowerCase())!,
+                      context.translate(
+                        word[index]!.substring(6).toLowerCase(),
+                      )!,
                   style: const TextStyle(
                     color: Colors.white,
                   ),
