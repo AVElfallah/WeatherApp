@@ -55,21 +55,18 @@ class _HomePageState extends State<HomePage> {
         body: Builder(
           builder: (context) {
             var watch = context.watch<HomePageController>();
-            return AnimatedContainer(
-              duration: const Duration(milliseconds: 2000),
-              child: conditionGetter(
-                watch.isLoading,
-                const Hero(
-                  tag: 'home_d',
-                  child: HomepageSkeltonWidget(),
-                ),
-                Hero(
-                  tag: 'home_d',
-                  child: HomePageWeatherDisplayerWidget(
-                    dayModel: watch.dayModel,
-                    current: watch.current,
-                    scrollController: watch.scrollController,
-                  ),
+            return conditionGetter(
+              watch.isLoading,
+              const Hero(
+                tag: 'home_d',
+                child: HomepageSkeltonWidget(),
+              ),
+              Hero(
+                tag: 'home_d',
+                child: HomePageWeatherDisplayerWidget(
+                  dayModel: watch.dayModel,
+                  current: watch.current,
+                  scrollController: watch.scrollController,
                 ),
               ),
             );
