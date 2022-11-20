@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
@@ -55,6 +54,9 @@ class AppDrawerWidget extends StatelessWidget {
                   context.translate('day')!,
                   context.translate('night')!,
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.visible,
+                softWrap: false,
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
