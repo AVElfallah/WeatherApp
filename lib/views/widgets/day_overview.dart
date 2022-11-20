@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 import 'package:weather_app/colors/colors.dart';
 import 'package:weather_app/config/assets.dart';
 import 'package:provider/provider.dart';
@@ -50,39 +51,48 @@ class HoursCardWidget extends StatelessWidget {
         intl.DateFormat.jm(context.watchAppCtrl.appLanguage.languageCode)
             .format(date);
 
-    return SizedBox(
-      width: context.width * .2,
-      height: context.height * .03,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            '${hourModel!.tempC}°C',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+    return TimelineTile(
+      axis: TimelineAxis.horizontal,
+      alignment: TimelineAlign.center,
+      indicatorStyle: IndicatorStyle(
+        drawGap: true,
+        width: 60,
+        height: 60,
+        indicator: Image.asset(
+          Assets().getWeatherImage(
+            hourModel!.isDay!,
+            hourModel!.condition!.icon!,
           ),
-          const SizedBox(
-            height: 10,
+        ),
+      ),
+      afterLineStyle: const LineStyle(
+        color: Colors.green,
+        thickness: 1.5,
+      ),
+      beforeLineStyle: const LineStyle(
+        color: Colors.pink,
+        thickness: 1.5,
+      ),
+      startChild: Container(
+        constraints: const BoxConstraints(
+          minWidth: 80,
+        ),
+        child: Text(
+          '${hourModel!.tempC}°C',
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
           ),
-          Image.asset(
-            Assets().getWeatherImage(
-              hourModel!.isDay!,
-              hourModel!.condition!.icon!,
-            ),
-            scale: 11,
-          ),
-          Text(
-            formater,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
+        ),
+      ),
+      endChild: Text(
+        formater,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:weather_app/config/context_extention.dart';
 import 'package:weather_app/views/widgets/weather_card.dart';
 import 'package:intl/intl.dart';
@@ -186,8 +187,10 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
             ),
           ),
         ),
-        const Center(
-          child: CircleWeatherTimeLine(),
+        Center(
+          child: CircleWeatherTimeLine(
+            astro: dayModel.astro!,
+          ),
         ),
         SizedBox(
           height: conditionGetter(
