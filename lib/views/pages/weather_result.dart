@@ -2,16 +2,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:weather_app/c_code.dart';
 import 'package:weather_app/colors/colors.dart';
 import 'package:weather_app/config/context_extention.dart';
+import 'package:weather_app/model/forecast_day_model.dart';
+import 'package:weather_app/model/forecast_hour_model.dart';
 import 'package:weather_app/model/location_model.dart';
 import 'package:weather_app/views/widgets/circle_weather_timeline.dart';
+import 'package:weather_app/views/widgets/timeline_custom_widget.dart';
 
+import '../../config/app_config.dart';
 import '../../config/assets.dart';
-import '../../controllers/weather_result_controller.dart';
+import '../../model/forecast_enums.dart';
+import 'package:weather_app/c_code.dart';
 import '../widgets/row_card.dart';
 
 class WeatherResultPage extends StatefulWidget {
@@ -23,74 +27,146 @@ class WeatherResultPage extends StatefulWidget {
 
 class _WeatherResultPageState extends State<WeatherResultPage> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final args =
-        LocationModel.fromJson(getArgument(context) as Map<String, dynamic>);
-    final wCtrl = context.watch<WeatherResultContoller>();
-    final rCtrl = context.read<WeatherResultContoller>();
-    rCtrl.setForecast(args.name, context.watchAppCtrl.appLanguage.languageCode);
-    var day = wCtrl.wholeDay;
-    var current = wCtrl.currentHour;
-
+    debugPrint('result page rebuild');
+    final args = getArgument(context) as Map<String, dynamic>;
+    ForecastDayModel day = args['day'];
+    ForecastHourModel current = args['current'];
+    LocationModel location = args['location'];
     return Scaffold(
       backgroundColor: ProjectColors.purple,
       appBar: AppBar(
         backgroundColor: ProjectColors.purple,
         centerTitle: true,
-        title: Text(args.name),
+        title: Text(location.name),
         elevation: 0,
       ),
-      body: conditionGetter(
-        wCtrl.isLoading!,
-        const Center(
-          child: CircularProgressIndicator(),
-        ),
-        ListView(
-          children: [
-            Center(
-              child: Text(
-                DateFormat.MMMMEEEEd(
-                  context.watchAppCtrl.appLanguage.languageCode,
-                ).format(
-                  DateTime.fromMillisecondsSinceEpoch(day!.dateEpoch! * 1000),
-                ),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: ListView(
+        children: [
+          Center(
+            child: Text(
+              DateFormat.MMMMEEEEd(
+                context.watchAppCtrl.appLanguage.languageCode,
+              ).format(
+                DateTime.fromMillisecondsSinceEpoch(day.dateEpoch! * 1000),
+              ),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
-              child: Column(
-                children: [
-                  TimelineTile(
-                    indicatorStyle: IndicatorStyle(
-                      width: 80,
+          ),
+          Text(
+            current.condition!.text!,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            '${context.translate('pressure')}: ${conditionGetter(
+              Appconfig.instance.pressureIn == PressureIn.inc,
+              '${current.pressureIn} Inc',
+              '${current.pressureMb} Mb',
+            )}',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            child: Column(
+              children: [
+                TimelineTile(
+                  indicatorStyle: IndicatorStyle(
+                    width: 80,
+                    height: 120,
+                    indicator: Image.asset(
+                      Assets.sleepMoon,
                       height: 120,
-                      indicator: Image.asset(
-                        Assets.sleepMoon,
-                        height: 120,
-                        width: 80,
-                      ),
+                      width: 80,
                     ),
-                    endChild: Column(
+                  ),
+                  //SECTION -  left
+                  endChild: Column(
+                    children: [
+                      Text(
+                        conditionGetter(
+                          Appconfig.instance.temperature == Temperature.c,
+                          '${current.tempC}°C',
+                          '${current.tempF}°F',
+                        ),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.arrow_upward,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            '${context.translate('max')}:${conditionGetter(
+                              Appconfig.instance.temperature == Temperature.c,
+                              '${day.day!.maxtempC}°C',
+                              '${day.day!.maxtempF}°F',
+                            )}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.arrow_downward,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            '${context.translate('min')}:${conditionGetter(
+                              Appconfig.instance.temperature == Temperature.c,
+                              '${day.day!.mintempC}°C',
+                              '${day.day!.mintempF}°F',
+                            )}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        '${context.translate("humidity")} ${day.day!.avghumidity!}%',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  //SECTION -  right
+                  startChild: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
                       children: [
                         Text(
-                          current!.condition!.text!,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          '${current.tempC!}°C',
+                          '${context.translate('rain_avg')}: ${day.day!.dailyChanceOfRain}%',
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 15,
@@ -98,7 +174,27 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                           ),
                         ),
                         Text(
-                          '${context.translate("humidity")} ${day.day!.avghumidity}%',
+                          '${context.translate('wind')}: ${conditionGetter(
+                            Appconfig.instance.windSpeed == WindSpeed.kph,
+                            '${current.windKph} km/h',
+                            '${current.windMph} m/h',
+                          )}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          '${context.translate('WindDir')}: ${current.windDir}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          '${context.translate('clouds')}: ${current.cloud}%',
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 15,
@@ -107,167 +203,103 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                         ),
                       ],
                     ),
-                    startChild: Padding(
+                  ),
+                  beforeLineStyle: const LineStyle(
+                    color: ProjectColors.purpleLight,
+                  ),
+                  isFirst: true,
+                  alignment: TimelineAlign.center,
+                ),
+                const TimeLineCustomWidget(),
+                TimelineTile(
+                  alignment: TimelineAlign.center,
+                  indicatorStyle: IndicatorStyle(
+                    width: 260,
+                    height: 60,
+                    indicator: Container(
                       padding: const EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          Text(
-                            '${context.translate('rain_avg')}: ${day.day!.dailyChanceOfRain}%',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '${context.translate('wind')}: ${current.windKph} km/h',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '${context.translate('WindDir')}: ${current.windDir}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      decoration: BoxDecoration(
+                        color: ProjectColors.purpleLight,
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                    ),
-                    beforeLineStyle: const LineStyle(
-                      color: ProjectColors.purpleLight,
-                    ),
-                    isFirst: true,
-                    alignment: TimelineAlign.center,
-                  ),
-                  const _TimeLine(),
-                  TimelineTile(
-                    alignment: TimelineAlign.center,
-                    indicatorStyle: IndicatorStyle(
-                      width: 260,
-                      height: 60,
-                      indicator: Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: ProjectColors.purpleLight,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Center(
-                          child: Text(
-                            context.translate("sun_moon_status")!,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    beforeLineStyle: const LineStyle(
-                      color: ProjectColors.purpleLight,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 400,
-                    child: CircleWeatherTimeLine(
-                      astro: day.astro!,
-                    ),
-                  ),
-                  _TimeLine(
-                    isDay: current.isDay,
-                    hasIndicator: true,
-                    indicatorStyle: IndicatorStyle(
-                      width: 280,
-                      height: 60,
-                      indicator: Container(
-                        padding: const EdgeInsets.all(18),
-                        decoration: BoxDecoration(
-                          color: ProjectColors.purpleLight,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Center(
-                          child: Text(
-                            context.translate('day_hours')!,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
+                      child: Center(
+                        child: Text(
+                          context.translate("sun_moon_status")!,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
                         ),
                       ),
                     ),
                   ),
-                  //REVIEW - TimeLine day hours
-                  //NOTE - in this code lines wem use "for" to place all hours in card
-                  //and display it in ui
-                  ...<Widget>[
-                    for (var hour in day.hour!) ...[
-                      const _TimeLine(
-                        hasIndicator: false,
+                  beforeLineStyle: const LineStyle(
+                    color: ProjectColors.purpleLight,
+                  ),
+                ),
+                SizedBox(
+                  height: 400,
+                  child: CircleWeatherTimeLine(
+                    astro: day.astro!,
+                  ),
+                ),
+                TimeLineCustomWidget(
+                  isDay: current.isDay,
+                  hasIndicator: true,
+                  indicatorStyle: IndicatorStyle(
+                    width: 280,
+                    height: 60,
+                    indicator: Container(
+                      padding: const EdgeInsets.all(18),
+                      decoration: BoxDecoration(
+                        color: ProjectColors.purpleLight,
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      _TimeLine(
-                        hasIndicator: true,
-                        indicatorStyle: IndicatorStyle(
-                          width: 270,
-                          height: 370,
-                          indicator: RowCardWidget(
-                            hour: hour,
+                      child: Center(
+                        child: Text(
+                          context.translate('day_hours')!,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
                         ),
-                        isDay: current.isDay,
                       ),
-                    ]
-                  ],
-                  //REVIEW - End of TimeLine
-                  _TimeLine(
-                    isLast: true,
-                    hasIndicator: false,
-                    isDay: current.isDay,
+                    ),
                   ),
+                ),
+                //REVIEW - TimeLine day hours
+                //NOTE - in this code lines wem use "for" to place all hours in card
+                //and display it in ui
+                ...<Widget>[
+                  for (var hour in day.hour!) ...[
+                    const TimeLineCustomWidget(
+                      hasIndicator: false,
+                    ),
+                    TimeLineCustomWidget(
+                      hasIndicator: true,
+                      indicatorStyle: IndicatorStyle(
+                        width: 270,
+                        height: 370,
+                        indicator: RowCardWidget(
+                          hour: hour,
+                        ),
+                      ),
+                      isDay: current.isDay,
+                    ),
+                  ]
                 ],
-              ),
+                //REVIEW - End of TimeLine
+                TimeLineCustomWidget(
+                  isLast: true,
+                  hasIndicator: false,
+                  isDay: current.isDay,
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _TimeLine extends StatelessWidget {
-  const _TimeLine({
-    super.key,
-    this.isDay = false,
-    this.isLast = false,
-    this.hasIndicator = false,
-    this.isFirst = false,
-    this.indicatorStyle = const IndicatorStyle(width: 20, height: 20),
-  });
-  final bool? isDay;
-  final bool? isLast;
-  final bool? hasIndicator;
-  final IndicatorStyle? indicatorStyle;
-  final bool? isFirst;
-  @override
-  Widget build(BuildContext context) {
-    return TimelineTile(
-      alignment: TimelineAlign.center,
-      indicatorStyle: indicatorStyle!,
-      hasIndicator: hasIndicator!,
-      isFirst: isFirst!,
-      isLast: isLast!,
-      beforeLineStyle: LineStyle(
-        color: conditionGetter(
-          isDay!,
-          Colors.yellow,
-          ProjectColors.purpleLight,
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -10,3 +10,9 @@ extension S on State {
     return ModalRoute.of(context)!.settings.arguments as Map;
   }
 }
+
+extension Args on StatelessWidget {
+  Map getArgument(BuildContext context) {
+    return ModalRoute.of(context)!.settings.arguments as Map;
+  }
+}

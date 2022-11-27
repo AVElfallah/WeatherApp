@@ -20,6 +20,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
+    debugPrint('Search page rebuild');
     var wCtrl = context.watch<SearchController>();
     var rCtrl = context.read<SearchController>();
     return Scaffold(
@@ -47,13 +48,20 @@ class _SearchPageState extends State<SearchPage> {
               ),
               children: [
                 TextFormField(
+                  onFieldSubmitted: (value) {
+                    rCtrl.clickSearchButton();
+                    rCtrl.search();
+                  },
                   controller: wCtrl.txtController,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 19,
                   ),
                   decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(9),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                    ),
+                    hintText: context.translate('search'),
                     constraints: BoxConstraints(
                       maxHeight: conditionGetter(
                         context.isPortrait,

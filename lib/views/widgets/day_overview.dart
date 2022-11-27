@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:weather_app/colors/colors.dart';
+import 'package:weather_app/config/app_config.dart';
 import 'package:weather_app/config/assets.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:weather_app/c_code.dart';
 
 import 'package:weather_app/config/context_extention.dart';
-import 'package:weather_app/controllers/home_controller.dart';
+import 'package:weather_app/model/forecast_enums.dart';
 import 'package:weather_app/model/forecast_hour_model.dart';
 
 class DayOverviewWidget extends StatelessWidget {
-  const DayOverviewWidget({Key? key}) : super(key: key);
+  const DayOverviewWidget({Key? key, required this.hours}) : super(key: key);
+  final List<ForecastHourModel>? hours;
   @override
   Widget build(BuildContext context) {
-    var watch = context.watch<HomePageController>();
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
@@ -30,11 +31,13 @@ class DayOverviewWidget extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.all(25),
-        children: watch.dayModel.hour!
-            .map((hour) => HoursCardWidget(
-                  hourModel: hour,
-                ))
-            .toList(),
+        children: [
+          //NOTE - using for instead of map to make build more faster
+          for (var hour in hours!)
+            HoursCardWidget(
+              hourModel: hour,
+            )
+        ],
       ),
     );
   }
@@ -45,9 +48,9 @@ class HoursCardWidget extends StatelessWidget {
   final ForecastHourModel? hourModel;
   @override
   Widget build(BuildContext context) {
-    var date = DateTime.fromMillisecondsSinceEpoch(
+    final date = DateTime.fromMillisecondsSinceEpoch(
         hourModel!.lastUpdatedEpoch! * 1000);
-    var formater =
+    final formater =
         intl.DateFormat.jm(context.watchAppCtrl.appLanguage.languageCode)
             .format(date);
 
@@ -78,7 +81,11 @@ class HoursCardWidget extends StatelessWidget {
           minWidth: 80,
         ),
         child: Text(
-          '${hourModel!.tempC}°C',
+          conditionGetter(
+            Appconfig.instance.temperature == Temperature.c,
+            '${hourModel!.tempC}°C',
+            '${hourModel!.tempF}°F',
+          ),
           style: const TextStyle(
             color: Colors.white,
             fontSize: 16,

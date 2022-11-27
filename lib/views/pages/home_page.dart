@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     //SECTION - initilzation of some variables
-
+    debugPrint('Home page rebuild');
     final args = getArgument(context);
 
     return ChangeNotifierProvider(

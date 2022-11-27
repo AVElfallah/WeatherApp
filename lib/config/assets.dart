@@ -18,7 +18,8 @@ class Assets {
   static const String wakeupMoon = 'assets/images/wakeupmoon.png';
   static const String nerworkError = 'assets/images/network_error.png';
   static const String map = 'assets/images/map.png';
-  static const String checkConnection = 'assets/images/check_connection.jpg';
+  static const String pressure = 'assets/images/pressure.png';
+  static const String cloud = 'assets/images/cloud.png';
 }
 
 class _DayImages {

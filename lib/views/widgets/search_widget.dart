@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:weather_app/config/context_extention.dart';
-import 'package:weather_app/config/routes.dart';
+import 'package:weather_app/controllers/search_controller.dart';
 import 'package:weather_app/model/location_model.dart';
 
 import '../../config/assets.dart';
@@ -85,10 +86,9 @@ class SearchWidget extends StatelessWidget {
                   color: Colors.black.withOpacity(.7),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    Routes.weatherResultPage.name!,
-                    arguments: locationModel.toJson(),
-                  );
+                  context
+                      .read<SearchController>()
+                      .openSearchResult(context, locationModel);
                 },
               ),
             ],

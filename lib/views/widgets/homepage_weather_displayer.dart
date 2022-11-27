@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/config/app_config.dart';
 
 import 'package:weather_app/config/context_extention.dart';
+import 'package:weather_app/model/forecast_enums.dart';
 import 'package:weather_app/views/widgets/weather_card.dart';
 import 'package:intl/intl.dart';
 import '../../c_code.dart';
@@ -86,7 +88,11 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    '${current.tempC}°C',
+                    conditionGetter(
+                      Appconfig.instance.temperature == Temperature.c,
+                      '${current.tempC}°C',
+                      '${current.tempF}°F',
+                    ),
                     style: const TextStyle(
                       fontSize: 32,
                       color: Colors.white,
@@ -96,7 +102,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
                   SizedBox(
                     width: context.width * .48,
                     child: Text(
-                      dayModel.day!.condition!.text!,
+                      current.condition!.text!,
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -115,7 +121,11 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
                         color: Colors.white,
                       ),
                       Text(
-                        '${context.translate('max')}:${dayModel.day!.maxtempC}°C',
+                        '${context.translate('max')}:${conditionGetter(
+                          Appconfig.instance.temperature == Temperature.c,
+                          '${current.tempC}°C',
+                          '${current.tempF}°F',
+                        )}',
                         style: const TextStyle(
                           fontSize: 11.5,
                           color: Colors.white,
@@ -130,7 +140,11 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
                         color: Colors.white,
                       ),
                       Text(
-                        '${context.translate('min')}:${dayModel.day!.mintempC}°C',
+                        '${context.translate('min')}:${conditionGetter(
+                          Appconfig.instance.temperature == Temperature.c,
+                          '${current.tempC}°C',
+                          '${current.tempF}°F',
+                        )}',
                         style: const TextStyle(
                           fontSize: 11.5,
                           color: Colors.white,
@@ -162,12 +176,30 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
               WeatherCardWidget(
                 assetsImage: Assets.freshair,
                 title: context.translate('wind_speed'),
-                subBoldTitle: '${current.windDir} ${current.windKph} km/h',
+                subBoldTitle: '${current.windDir} ${conditionGetter(
+                  Appconfig.instance.windSpeed == WindSpeed.kph,
+                  '${current.windKph} km/h',
+                  '${current.windMph} m/h',
+                )}',
               ),
               WeatherCardWidget(
                 assetsImage: Assets.waterdrops,
                 title: context.translate('humidity'),
                 subBoldTitle: '${current.humidity}%',
+              ),
+              WeatherCardWidget(
+                assetsImage: Assets.cloud,
+                title: context.translate('clouds'),
+                subBoldTitle: '${current.cloud}%',
+              ),
+              WeatherCardWidget(
+                assetsImage: Assets.pressure,
+                title: context.translate('pressure'),
+                subBoldTitle: conditionGetter(
+                  Appconfig.instance.pressureIn == PressureIn.inc,
+                  '${current.pressureIn} Inc',
+                  '${current.pressureMb} Mb',
+                ),
               ),
             ],
           ),
@@ -203,7 +235,9 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
             context.width * .85,
             context.width * .1,
           ),
-          child: const DayOverviewWidget(),
+          child: DayOverviewWidget(
+            hours: dayModel.hour!,
+          ),
         ),
       ],
     );

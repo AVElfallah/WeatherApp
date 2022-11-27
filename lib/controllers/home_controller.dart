@@ -15,7 +15,8 @@ class HomePageController extends ChangeNotifier {
   LocationModel locationModel;
 
   CurrentForecast forecast = CurrentForecast.today;
-  ScrollController scrollController = ScrollController(initialScrollOffset: 92);
+  ScrollController scrollController =
+      ScrollController(initialScrollOffset: 192);
   bool isLoading = false;
   @override
   void dispose() {
@@ -61,15 +62,9 @@ class HomePageController extends ChangeNotifier {
     notifyListeners();
     weather.getTodayForecast(longlat, lang).then(
       (day) async {
-        dayModel = day;
-        current = await weather.getCurrentForecast(
-          locationModel.name,
-          lang,
-        );
-        locationModel = await weather.getLocationInfo(
-          longlat,
-          lang,
-        );
+        dayModel = day['day'];
+        current = day['current'];
+        locationModel = day['location'];
         isLoading = false;
         notifyListeners();
       },

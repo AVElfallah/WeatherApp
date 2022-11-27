@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/controllers/search_controller.dart';
-import 'package:weather_app/controllers/weather_result_controller.dart';
 import 'package:weather_app/model/route_model.dart';
 import 'package:weather_app/views/pages/home_page.dart';
 import 'package:weather_app/views/pages/search_page.dart';
@@ -35,11 +34,8 @@ class Routes {
     name: '/splash',
     page: SplashPage(),
   );
-  static RouteModel weatherResultPage = RouteModel(
+  static const RouteModel weatherResultPage = RouteModel(
     name: '/weatherResultPage',
-    page: ChangeNotifierProvider(
-      create: (context) => WeatherResultContoller(),
-      child: const WeatherResultPage(),
-    ),
+    page: WeatherResultPage(),
   );
 }

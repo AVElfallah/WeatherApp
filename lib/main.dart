@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_app/config/app_config.dart';
 
 import 'package:weather_app/config/routes.dart';
 import 'package:weather_app/controllers/application_controller.dart';
 
 import 'localization/localization.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init('WeatherApp');
+  Appconfig.instance;
   runApp(
     ChangeNotifierProvider(
-      create: (_) => AppController(),
+      create: (_) => AppController.instance,
       child: const MyApp(),
     ),
   );

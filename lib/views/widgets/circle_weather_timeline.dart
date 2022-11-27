@@ -22,6 +22,11 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
   @override
   Widget build(BuildContext context) {
     return CircleList(
+      animationSetting: AnimationSetting(
+        duration: const Duration(milliseconds: 3000),
+        curve: Curves.easeInOutBack,
+      ),
+      dragAngleRange: DragAngleRange(0, 270),
       showInitialAnimation: true,
       origin: const Offset(0, 0),
       centerWidget: Image.asset(

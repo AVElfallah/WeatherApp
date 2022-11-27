@@ -52,7 +52,7 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
         IconButton(
           onPressed: () async {
             read.changeCurrentForecast(
-                context.watchAppCtrl.appLanguage.languageCode);
+                context.readAppCtrl.appLanguage.languageCode);
           },
           icon: const Icon(
             Icons.refresh,

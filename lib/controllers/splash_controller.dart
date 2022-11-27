@@ -4,6 +4,9 @@ import 'package:location/location.dart';
 
 import 'package:flutter/material.dart';
 import 'package:weather_app/config/routes.dart';
+import 'package:weather_app/model/forecast_day_model.dart';
+import 'package:weather_app/model/forecast_hour_model.dart';
+import 'package:weather_app/model/location_model.dart';
 import 'package:weather_app/repository/insource/location_permission.dart';
 import 'package:weather_app/repository/insource/network_connection.dart';
 import 'package:weather_app/repository/outsource/weather_repo.dart';
@@ -87,24 +90,26 @@ class SplashPageController extends ChangeNotifier {
     var locData = await Location().getLocation(); //get location
     var longlat = '${locData.latitude},${locData.longitude}'; //set location var
     var weather = WeatherRepository.instance;
-    var dayForecast = await weather.getTodayForecast(
+    late final ForecastDayModel? forecastDay;
+    late final ForecastHourModel? currentForcast;
+    late final LocationModel? location;
+    await weather
+        .getTodayForecast(
       longlat,
       lang,
-    );
-    var currentForcast = await weather.getCurrentForecast(
-      longlat,
-      lang,
-    );
-    var location = await weather.getLocationInfo(
-      longlat,
-      lang,
-    );
+    )
+        .then((day) {
+      forecastDay = day['day'];
+
+      location = day['location'];
+      currentForcast = day['current'];
+    });
 
     Navigator.pushReplacementNamed(
       context!,
       Routes.homePage.name!,
       arguments: {
-        'dayForecast': dayForecast,
+        'dayForecast': forecastDay,
         'currentForcast': currentForcast,
         'location': location,
       },
