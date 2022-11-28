@@ -11,6 +11,12 @@ extension S on State {
   }
 }
 
+extension EXTStateful on StatefulWidget {
+  Map getArgument(BuildContext context) {
+    return ModalRoute.of(context)!.settings.arguments as Map;
+  }
+}
+
 extension Args on StatelessWidget {
   Map getArgument(BuildContext context) {
     return ModalRoute.of(context)!.settings.arguments as Map;

@@ -9,11 +9,10 @@ import 'package:weather_app/views/widgets/homepage_weather_displayer.dart';
 
 import '../widgets/app_drawer.dart';
 import 'package:weather_app/config/context_extention.dart';
-
 import '../widgets/homepage_app_bar.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -25,17 +24,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     //SECTION - initilzation of some variables
     debugPrint('Home page rebuild');
+
     final args = getArgument(context);
 
     return ChangeNotifierProvider(
-      create: (_) => HomePageController(
-        args['dayForecast'],
-        args['currentForcast'],
-        args['location'],
-      ),
+      create: (_) {
+        debugPrint('Home page controller rebuild');
+        return HomePageController(
+          args['dayForecast'],
+          args['currentForcast'],
+          args['location'],
+        );
+      },
       child: Scaffold(
         key: _scaffoldKey,
-        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: false,
 
         drawer: const AppDrawerWidget(),
         backgroundColor: ProjectColors.purple,
