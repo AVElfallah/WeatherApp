@@ -6,8 +6,6 @@ class Appconfig {
   //SECTION -
   Appconfig._() {
     debugPrint('Appconfig class has been intilazed');
-    _initStorage();
-    _setPreferences().whenComplete(() => debugPrint('setPref complete'));
   }
 
   //SECTION -  static vars
@@ -17,33 +15,39 @@ class Appconfig {
   static final storedInfoBox = GetStorage('WeatherApp');
 
 //SECTION -  application preferences
-  Temperature? temperature;
-  PressureIn? pressureIn;
-  WindSpeed? windSpeed;
-  String? applang;
+  Temperature? temperature =
+      temperatuerByKey(storedInfoBox.read<String>('temperature')!) ??
+          Temperature.c;
+  PressureIn? pressureIn =
+      getPressureInByKey(storedInfoBox.read<String>('pressureIn')!) ??
+          PressureIn.inc;
+  WindSpeed? windSpeed =
+      getWindSpeedByKey(storedInfoBox.read<String>('windSpeed')!) ??
+          WindSpeed.kph;
+  String applang = storedInfoBox.read('applang') ?? 'en';
 
 //SECTION -  internal methods
-  Future<void> updatePreferences() async {
-    await storedInfoBox.write('applang', applang);
-    await storedInfoBox.write('temperature', temperature.toString());
-    await storedInfoBox.write('pressureIn', pressureIn.toString());
-    await storedInfoBox.write('windSpeed', windSpeed.toString());
-  }
+  /*  void updateLanguage(String lang) {
+    applang.val = lang;
+    storedInfoBox.writeIfNull('applang', lang);
+  } */
 
-  Future<void> _setPreferences() async {
-    temperature = temperatuerByKey(storedInfoBox.read<String>('temperature')!);
-    pressureIn = getPressureInByKey(storedInfoBox.read<String>('pressureIn')!);
-    windSpeed = getWindSpeedByKey(storedInfoBox.read<String>('windSpeed')!);
-    applang = storedInfoBox.read<String>('applang');
+  void updatePreferences() {
+    debugPrint('update start');
+    storedInfoBox.write('applang', applang);
+
+    storedInfoBox.write(
+        'temperature', Temperature.values[temperature!.index].name);
+
+    storedInfoBox.write(
+      'pressureIn',
+      PressureIn.values[pressureIn!.index].name,
+    );
+
+    storedInfoBox.write('windSpeed', WindSpeed.values[windSpeed!.index].name);
+    debugPrint('update end');
   }
 
 //SECTION -  static methods
 
-  static void _initStorage() {
-    storedInfoBox.writeIfNull('applang', 'en');
-    storedInfoBox.writeIfNull('temperature', 'c');
-    storedInfoBox.writeIfNull('pressureIn', 'inc');
-    storedInfoBox.writeIfNull('windSpeed', 'kph');
-    debugPrint('initStorage complete');
-  }
 }

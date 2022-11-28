@@ -72,7 +72,7 @@ class AppDrawerWidget extends StatelessWidget {
                   builder: (con) => Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 76,
-                      vertical: context.height * .37,
+                      vertical: context.height * .36,
                     ),
                     child: Container(
                       decoration: BoxDecoration(
@@ -112,7 +112,7 @@ class AppDrawerWidget extends StatelessWidget {
                                     con.readAppCtrl.appLanguage.languageCode,
                                   );
                                 }),
-                                titleText: 'English Language',
+                                titleText: 'English',
                               ),
                             ),
                           )
@@ -147,6 +147,25 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               title: Text(
                 context.translate('search')!,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            GFListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  Routes.settings.name!,
+                );
+              },
+              icon: const Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
+              title: Text(
+                context.translate('settings')!,
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

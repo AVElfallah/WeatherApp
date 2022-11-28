@@ -56,7 +56,7 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
             ),
             height: conditionGetter(
               context.isPortrait,
-              context.height * .112,
+              context.height * .122,
               context.height * .25,
             ),
             child: Column(

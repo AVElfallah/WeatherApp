@@ -54,7 +54,7 @@ class SearchWidget extends StatelessWidget {
                 ),
               ),
               Image.asset(
-                Assets.map,
+                Assets.get_location,
                 height: context.height * .22,
               ),
               Row(

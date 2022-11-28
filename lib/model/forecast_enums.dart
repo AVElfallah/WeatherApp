@@ -13,7 +13,7 @@ enum PressureIn {
   inc,
 }
 
-PressureIn getPressureInByKey(String key) {
+PressureIn? getPressureInByKey(String key) {
   switch (key) {
     case 'inc':
       return PressureIn.inc;
@@ -24,7 +24,7 @@ PressureIn getPressureInByKey(String key) {
   }
 }
 
-WindSpeed getWindSpeedByKey(String key) {
+WindSpeed? getWindSpeedByKey(String key) {
   switch (key) {
     case 'mph':
       return WindSpeed.mph;
@@ -35,7 +35,7 @@ WindSpeed getWindSpeedByKey(String key) {
   }
 }
 
-Temperature temperatuerByKey(String key) {
+Temperature? temperatuerByKey(String key) {
   switch (key) {
     case 'c':
       return Temperature.c;

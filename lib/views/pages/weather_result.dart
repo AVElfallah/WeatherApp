@@ -15,7 +15,6 @@ import 'package:weather_app/views/widgets/timeline_custom_widget.dart';
 import '../../config/app_config.dart';
 import '../../config/assets.dart';
 import '../../model/forecast_enums.dart';
-import 'package:weather_app/c_code.dart';
 import '../widgets/row_card.dart';
 
 class WeatherResultPage extends StatefulWidget {

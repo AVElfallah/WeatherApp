@@ -20,6 +20,7 @@ class Assets {
   static const String map = 'assets/images/map.png';
   static const String pressure = 'assets/images/pressure.png';
   static const String cloud = 'assets/images/cloud.png';
+  static const String get_location = 'assets/images/get_location.jpg';
 }
 
 class _DayImages {

@@ -161,7 +161,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
         SizedBox(
           height: conditionGetter(
             context.isPortrait,
-            context.height * .28,
+            context.height * .30,
             context.height * .6,
           ),
           child: ListView(
