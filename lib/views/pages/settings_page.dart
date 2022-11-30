@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/colors/gf_color.dart';
-import 'package:getwidget/components/list_tile/gf_list_tile.dart';
-import 'package:getwidget/components/radio_list_tile/gf_radio_list_tile.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/colors/colors.dart';
-import 'package:weather_app/config/app_config.dart';
 import 'package:weather_app/config/context_extention.dart';
 import 'package:weather_app/controllers/settings_controller.dart';
 import 'package:weather_app/model/forecast_enums.dart';

@@ -6,8 +6,7 @@ import '../../config/assets.dart';
 import 'package:weather_app/config/context_extention.dart';
 
 class CircleWeatherTimeLine extends StatefulWidget {
-  const CircleWeatherTimeLine({Key? key, required this.astro})
-      : super(key: key);
+  const CircleWeatherTimeLine({super.key, required this.astro});
   final AstronomyModel astro;
   @override
   State<CircleWeatherTimeLine> createState() => _CircleWeatherTimeLineState();
@@ -21,6 +20,18 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
 
   @override
   Widget build(BuildContext context) {
+    var i = [
+      Assets.wakeupSun,
+      Assets.sleepSun,
+      Assets.wakeupMoon,
+      Assets.sleepMoon
+    ];
+    var word = [
+      widget.astro.sunrise,
+      widget.astro.sunset,
+      widget.astro.moonrise,
+      widget.astro.moonset,
+    ];
     return CircleList(
       animationSetting: AnimationSetting(
         duration: const Duration(milliseconds: 3000),
@@ -33,22 +44,9 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
         Assets.planetearth,
         scale: 3.5,
       ),
-      children: List.generate(
-        4,
-        (index) {
-          var i = [
-            Assets.wakeupSun,
-            Assets.sleepSun,
-            Assets.wakeupMoon,
-            Assets.sleepMoon
-          ];
-          var word = [
-            widget.astro.sunrise,
-            widget.astro.sunset,
-            widget.astro.moonrise,
-            widget.astro.moonset,
-          ];
-          return SizedBox(
+      children: [
+        for (var ind = 0; ind < 4; ind++)
+          SizedBox(
             width: conditionGetter(
               context.isPortrait,
               context.width * .25,
@@ -56,29 +54,37 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
             ),
             height: conditionGetter(
               context.isPortrait,
-              context.height * .122,
+              context.height * .135,
               context.height * .25,
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Image.asset(
-                  i[index],
+                  i[ind],
                   scale: 8,
                 ),
                 Text(
-                  word[index]!.substring(0, 6) +
-                      context.translate(
-                        word[index]!.substring(6).toLowerCase(),
+                  conditionGetter(
+                    word[ind]!.contains(
+                      RegExp('[AM+P+:]'),
+                    ),
+                    word[ind]!.replaceFirstMapped(
+                      RegExp('AM|PM'),
+                      (s) => context.translate(
+                        s[0]!.toLowerCase(),
                       )!,
+                    ),
+                    word[ind]!.toUpperCase(),
+                  ),
                   style: const TextStyle(
                     color: Colors.white,
                   ),
                 )
               ],
             ),
-          );
-        },
-      ),
+          )
+      ],
     );
   }
 }
