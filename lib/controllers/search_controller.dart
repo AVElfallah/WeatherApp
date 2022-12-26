@@ -26,7 +26,9 @@ class SearchController extends ChangeNotifier {
       locationModel.name,
       context.readAppCtrl.appLanguage.languageCode,
     );
-    Navigator.of(context).pushNamed(
+    // ignore: use_build_context_synchronously
+    Navigator.pushNamed(
+      context,
       Routes.weatherResultPage.name!,
       arguments: backMap,
     );

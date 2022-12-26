@@ -14,11 +14,11 @@ class SettingsPage extends StatelessWidget {
     return ChangeNotifierProvider<SettingsController>(
       create: ((context) => SettingsController()),
       child: Scaffold(
-        backgroundColor: ProjectColors.purple,
+        // backgroundColor: ProjectColors.purple,
         appBar: AppBar(
           title: Text(context.translate('settings')!),
           elevation: 0,
-          backgroundColor: ProjectColors.purple,
+          //   backgroundColor: ProjectColors.purple,
           centerTitle: true,
         ),
         body: Center(
@@ -30,7 +30,7 @@ class SettingsPage extends StatelessWidget {
                   child: Text(
                     context.translate('UFTM')!,
                     style: const TextStyle(
-                      color: Colors.white,
+                      //       color: Colors.white,
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
@@ -56,7 +56,7 @@ class SettingsPage extends StatelessWidget {
                           title: Text(
                             context.translate('in_celsius')!,
                             style: const TextStyle(
-                              color: Colors.white,
+                              //  color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -70,7 +70,7 @@ class SettingsPage extends StatelessWidget {
                           title: Text(
                             context.translate('in_fahr')!,
                             style: const TextStyle(
-                              color: Colors.white,
+                              // color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -88,7 +88,7 @@ class SettingsPage extends StatelessWidget {
                   child: Text(
                     context.translate('PMU')!,
                     style: const TextStyle(
-                      color: Colors.white,
+                      //   color: Colors.white,
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
@@ -114,7 +114,7 @@ class SettingsPage extends StatelessWidget {
                           title: Text(
                             context.translate('in_millis')!,
                             style: const TextStyle(
-                              color: Colors.white,
+                              //  color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -128,7 +128,7 @@ class SettingsPage extends StatelessWidget {
                           title: Text(
                             context.translate('in_inch')!,
                             style: const TextStyle(
-                              color: Colors.white,
+                              //   color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -147,7 +147,7 @@ class SettingsPage extends StatelessWidget {
                   child: Text(
                     context.translate('WMU')!,
                     style: const TextStyle(
-                      color: Colors.white,
+                      //   color: Colors.white,
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
@@ -173,7 +173,7 @@ class SettingsPage extends StatelessWidget {
                           title: Text(
                             context.translate('speed_km')!,
                             style: const TextStyle(
-                              color: Colors.white,
+                              //     color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -187,7 +187,7 @@ class SettingsPage extends StatelessWidget {
                           title: Text(
                             context.translate('speed_m')!,
                             style: const TextStyle(
-                              color: Colors.white,
+                              //   color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),

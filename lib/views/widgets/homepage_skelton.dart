@@ -16,11 +16,9 @@ class HomepageSkeltonWidget extends StatelessWidget {
       duration: const Duration(milliseconds: 7200),
       shimmerGradient: LinearGradient(
         colors: [
-          ProjectColors.purpleLight,
-          Colors.white70,
-          ProjectColors.purpleLight.withOpacity(
-            .65,
-          ),
+          context.theme.primaryColor,
+          context.theme.scaffoldBackgroundColor,
+          context.theme.highlightColor,
         ],
         stops: const [
           0.1,

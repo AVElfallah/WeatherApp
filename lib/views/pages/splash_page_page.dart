@@ -18,15 +18,15 @@ class SplashPage extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            backgroundColor: ProjectColors.purple,
+            backgroundColor: context.theme.scaffoldBackgroundColor,
             appBar: PreferredSize(
               preferredSize: Size(
                 double.infinity,
                 context.height * .08,
               ),
               child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 38.0,
+                padding: EdgeInsets.only(
+                  top: context.aspectR * 38,
                 ),
                 child: IconStepper(
                   enableNextPreviousButtons: false,
@@ -40,16 +40,19 @@ class SplashPage extends StatelessWidget {
                     Icon(Icons.cloud),
                   ],
                   activeStep: context.watch<SplashPageController>().stateIndex,
-                  stepColor: Colors.green.shade50,
+                  stepColor: context.theme.primaryColor,
                 ),
               ),
             ),
             body: SafeArea(
               child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.bottomLeft,
-                    colors: [ProjectColors.purpleLight, ProjectColors.purple],
+                    colors: [
+                      context.theme.primaryColor,
+                      context.theme.scaffoldBackgroundColor,
+                    ],
                   ),
                 ),
                 child: Column(
@@ -87,7 +90,7 @@ class SplashPage extends StatelessWidget {
                         child: DefaultTextStyle(
                           style: const TextStyle(
                             fontSize: 20,
-                            color: Colors.white,
+                            //  color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                           child: AnimatedTextKit(
@@ -101,6 +104,9 @@ class SplashPage extends StatelessWidget {
                                   (txt) => RotateAnimatedText(
                                     txt.toUpperCase(),
                                     textAlign: TextAlign.center,
+                                    textStyle: TextStyle(
+                                      color: context.theme.splashColor,
+                                    ),
                                   ),
                                 )
                                 .toList(),

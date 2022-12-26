@@ -16,15 +16,16 @@ class DayOverviewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(15),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            ProjectColors.purple,
-            ProjectColors.purpleLight.withOpacity(.4),
-            ProjectColors.purple,
+            context.theme.primaryColor,
+            context.theme.cardColor,
+            context.theme.primaryColor,
           ],
         ),
       ),
@@ -68,15 +69,15 @@ class HoursCardWidget extends StatelessWidget {
           ),
         ),
       ),
-      afterLineStyle: const LineStyle(
-        color: Colors.green,
+      afterLineStyle: LineStyle(
+        color: Colors.blue.shade900,
         thickness: 1.5,
       ),
       beforeLineStyle: const LineStyle(
-        color: Colors.pink,
+        color: Colors.red,
         thickness: 1.5,
       ),
-      startChild: Container(
+      startChild: ConstrainedBox(
         constraints: const BoxConstraints(
           minWidth: 80,
         ),
@@ -87,18 +88,25 @@ class HoursCardWidget extends StatelessWidget {
             '${hourModel!.tempF}°F',
           ),
           style: const TextStyle(
-            color: Colors.white,
+            //   color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
-      endChild: Text(
-        formater,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
+      endChild: ConstrainedBox(
+        constraints: const BoxConstraints(
+          minWidth: 80,
+          minHeight: 90,
+          maxHeight: 90,
+        ),
+        child: Text(
+          formater,
+          style: const TextStyle(
+            //  color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

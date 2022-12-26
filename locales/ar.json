@@ -31,6 +31,7 @@
     "humidity": "الرطوبة",
     "max": "العظمي",
     "min": "الصغري",
+    "darkmode":"الوضع الداكن",
         "check network connection": "فحص حالة الاتصال بالشبكة",
         "get your current location": "الوصول الى موقعك الحالي",
         "geting forcastes & open the app": "الحصول علي التوقعات و فتح التطبيق"

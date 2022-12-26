@@ -16,7 +16,7 @@ class SearchWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
       child: Card(
-        color: Colors.white,
+        //  color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
             25,

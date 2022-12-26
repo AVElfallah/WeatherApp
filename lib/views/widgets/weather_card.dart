@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/card/gf_card.dart';
 
 import '../../colors/colors.dart';
 
@@ -14,28 +13,33 @@ class WeatherCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mqSize = MediaQuery.of(context).size;
-    return SizedBox(
-      width: mqSize.width * .485,
-      child: GFCard(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+    return Card(
+      margin: const EdgeInsets.all(8),
+      elevation: 8,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(36),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        width: mqSize.width * .488,
+        decoration: BoxDecoration(
+          //  color: ProjectColors.purpleLight,
+          borderRadius: BorderRadius.circular(35),
         ),
-        color: ProjectColors.purpleLight,
-        image: Image.asset(
-          assetsImage!,
-          scale: 5,
-        ),
-        showImage: true,
-        content: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            Image.asset(
+              assetsImage!,
+              scale: 5,
+            ),
             Text(
               subBoldTitle!,
               maxLines: 2,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+                //  color: Colors.white,
+                fontWeight: FontWeight.w700,
                 fontSize: 18,
               ),
             ),
@@ -43,9 +47,9 @@ class WeatherCardWidget extends StatelessWidget {
               title!,
               maxLines: 1,
               style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
+                //    color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
               ),
             ),
           ],

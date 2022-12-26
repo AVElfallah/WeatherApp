@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_app/colors/colors.dart';
 import 'package:weather_app/config/app_config.dart';
+import 'package:weather_app/config/app_theme.dart';
 
 import 'package:weather_app/config/routes.dart';
 import 'package:weather_app/controllers/application_controller.dart';
@@ -40,10 +42,9 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        secondaryHeaderColor: Colors.white,
-      ),
+      themeMode: watch.themeMode,
+      theme: ApplicationTheme.ligtTheme,
+      darkTheme: ApplicationTheme.darkTheme,
       routes: Routes().mapOFRoutes,
       initialRoute: Routes.splashPage.name,
     );

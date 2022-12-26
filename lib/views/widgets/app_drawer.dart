@@ -23,9 +23,9 @@ class AppDrawerWidget extends StatelessWidget {
         begin: Alignment.bottomLeft,
         end: Alignment.topRight,
         colors: [
-          ProjectColors.purple,
-          ProjectColors.purpleLight.withOpacity(.5),
-          ProjectColors.purple,
+          context.theme.primaryColor,
+          context.theme.cardColor,
+          context.theme.primaryColor,
         ],
       ),
       child: SafeArea(
@@ -57,10 +57,10 @@ class AppDrawerWidget extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.visible,
                 softWrap: false,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: context.theme.splashColor,
                 ),
               ),
             ),
@@ -91,9 +91,8 @@ class AppDrawerWidget extends StatelessWidget {
                                       con.readAppCtrl.appLanguage.languageCode);
                                 },
                                 title: const Text(
-                                  'اللغة العربية',
+                                  'العربية',
                                   style: TextStyle(
-                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 17,
                                   ),
@@ -122,18 +121,36 @@ class AppDrawerWidget extends StatelessWidget {
                   ),
                 );
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.translate,
-                color: Colors.white,
+                color: context.theme.splashColor,
               ),
               title: Text(
                 context.translate('language')!,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: context.theme.splashColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
               ),
+            ),
+            SwitchListTile(
+              title: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  'darkmode'.tr(context)!,
+                  style: TextStyle(
+                    color: context.theme.splashColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              value: context.isDarkMode,
+              onChanged: (bool? value) {
+                var read = context.read<AppController>();
+                read.changeAppTheme();
+              },
             ),
             GFListTile(
               onTap: () {
@@ -141,14 +158,14 @@ class AppDrawerWidget extends StatelessWidget {
                   Routes.searchPage.name!,
                 );
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.search,
-                color: Colors.white,
+                color: context.theme.splashColor,
               ),
               title: Text(
                 context.translate('search')!,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: context.theme.splashColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
@@ -160,14 +177,14 @@ class AppDrawerWidget extends StatelessWidget {
                   Routes.settings.name!,
                 );
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.settings,
-                color: Colors.white,
+                color: context.theme.splashColor,
               ),
               title: Text(
                 context.translate('settings')!,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: context.theme.splashColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),

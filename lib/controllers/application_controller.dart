@@ -6,6 +6,16 @@ class AppController extends ChangeNotifier {
   static final _instance = AppController._();
   static AppController get instance => _instance;
   Locale appLanguage = Locale(Appconfig.instance.applang);
+  ThemeMode themeMode =
+      Appconfig.instance.isDarkMode ? ThemeMode.dark : ThemeMode.light;
+
+  changeAppTheme() {
+    themeMode =
+        (themeMode == ThemeMode.dark) ? ThemeMode.light : ThemeMode.dark;
+    Appconfig.instance.isDarkMode = (themeMode == ThemeMode.dark);
+    Appconfig.instance.updatePreferences();
+    notifyListeners();
+  }
 
   changeAppLocale(AppLang lang) {
     appLanguage = Locale(lang.name.toLowerCase());

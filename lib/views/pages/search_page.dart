@@ -25,9 +25,9 @@ class _SearchPageState extends State<SearchPage> {
     var rCtrl = context.read<SearchController>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color.fromARGB(255, 38, 2, 92),
+      //   backgroundColor: const Color.fromARGB(255, 38, 2, 92),
       appBar: GFAppBar(
-          backgroundColor: const Color.fromARGB(255, 38, 2, 92),
+          //  backgroundColor: const Color.fromARGB(255, 38, 2, 92),
           elevation: 0,
           centerTitle: true,
           title: conditionGetter(

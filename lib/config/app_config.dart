@@ -11,7 +11,7 @@ class Appconfig {
   //SECTION -  static vars
   static final Appconfig _instance = Appconfig._();
   static Appconfig get instance => _instance;
-  static const String apiKey = 'cd136c77bedb4ef689c154038221611';
+  static const String apiKey = 'f0d89c4a18df461fa32233319221912';
   static GetStorage? storedInfoBox = GetStorage('WeatherApp');
 
 //SECTION -  application preferences
@@ -22,7 +22,7 @@ class Appconfig {
   WindSpeed? windSpeed =
       getWindSpeedByKey(storedInfoBox?.read<String>('windSpeed') ?? 'kph');
   String applang = storedInfoBox?.read('applang') ?? 'en';
-
+  bool isDarkMode = storedInfoBox?.read('isDarkMode') ?? true;
 //SECTION
 
   void updatePreferences() {
@@ -36,7 +36,7 @@ class Appconfig {
       'pressureIn',
       PressureIn.values[pressureIn!.index].name,
     );
-
+    storedInfoBox?.write('isDarkMode', isDarkMode);
     storedInfoBox?.write('windSpeed', WindSpeed.values[windSpeed!.index].name);
     debugPrint('update end');
   }

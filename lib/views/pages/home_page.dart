@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         resizeToAvoidBottomInset: false,
 
         drawer: const AppDrawerWidget(),
-        backgroundColor: ProjectColors.purple,
+        //    backgroundColor: ProjectColors.purple,
         //SECTION - AppBar
 
         appBar: PreferredSize(
@@ -55,11 +55,10 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ),
-        body: Builder(
-          builder: (context) {
-            var watch = context.watch<HomePageController>();
+        body: Consumer<HomePageController>(
+          builder: (_, homeCtrl, __) {
             return conditionGetter(
-              watch.isLoading,
+              homeCtrl.isLoading,
               const Hero(
                 tag: 'home_d',
                 child: HomepageSkeltonWidget(),
@@ -67,9 +66,9 @@ class _HomePageState extends State<HomePage> {
               Hero(
                 tag: 'home_d',
                 child: HomePageWeatherDisplayerWidget(
-                  dayModel: watch.dayModel,
-                  current: watch.current,
-                  scrollController: watch.scrollController,
+                  dayModel: homeCtrl.dayModel,
+                  current: homeCtrl.current,
+                  scrollController: homeCtrl.scrollController,
                 ),
               ),
             );

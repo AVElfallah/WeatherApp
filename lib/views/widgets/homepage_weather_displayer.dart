@@ -49,7 +49,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
               child: Text(
                 '${dateTime.isBefore(DateTime.now()) ? context.translate('today')! : context.translate('tomorrow')!} -',
                 style: const TextStyle(
-                  color: Colors.white,
+                  //   color: Colors.white,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -61,7 +61,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
               style: const TextStyle(
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.w400,
-                color: Colors.white,
+                //   color: Colors.white,
                 fontSize: 20,
               ),
             ),
@@ -95,7 +95,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
                     ),
                     style: const TextStyle(
                       fontSize: 32,
-                      color: Colors.white,
+                      //    color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -108,7 +108,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 23,
-                        color: Colors.white,
+                        //  color: Colors.white,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -116,9 +116,9 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.arrow_upward_rounded,
-                        color: Colors.white,
+                        color: context.theme.splashColor,
                       ),
                       Text(
                         '${context.translate('max')}:${conditionGetter(
@@ -128,16 +128,16 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
                         )}',
                         style: const TextStyle(
                           fontSize: 11.5,
-                          color: Colors.white,
+                          //  color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(
                         width: 10,
                       ),
-                      const Icon(
+                      Icon(
                         Icons.arrow_downward,
-                        color: Colors.white,
+                        color: context.theme.splashColor,
                       ),
                       Text(
                         '${context.translate('min')}:${conditionGetter(
@@ -147,7 +147,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
                         )}',
                         style: const TextStyle(
                           fontSize: 11.5,
-                          color: Colors.white,
+                          //   color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -161,7 +161,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
         SizedBox(
           height: conditionGetter(
             context.isPortrait,
-            context.height * .30,
+            context.height * .31,
             context.height * .6,
           ),
           child: ListView(
@@ -212,7 +212,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
             child: Text(
               context.translate("sun_moon_status")!,
               style: const TextStyle(
-                color: Colors.white,
+                //   color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -227,7 +227,7 @@ class HomePageWeatherDisplayerWidget extends StatelessWidget {
         SizedBox(
           height: conditionGetter(
             context.isPortrait,
-            context.height * .2,
+            context.height * .22,
             context.height * .5,
           ),
           width: conditionGetter(

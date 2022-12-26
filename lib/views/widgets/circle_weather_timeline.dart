@@ -78,8 +78,8 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
                     word[ind]!.toUpperCase(),
                   ),
                   style: const TextStyle(
-                    color: Colors.white,
-                  ),
+                      //    color: Colors.white,
+                      ),
                 )
               ],
             ),

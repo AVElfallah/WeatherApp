@@ -4,6 +4,7 @@ import 'package:weather_app/config/context_extention.dart';
 
 import '../../c_code.dart';
 import '../../colors/colors.dart';
+import '../../controllers/application_controller.dart';
 import '../../controllers/home_controller.dart';
 
 class HomePageAppBarWidget extends StatefulWidget {
@@ -25,7 +26,7 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
     var watch = context.watch<HomePageController>();
     var read = context.watch<HomePageController>();
     return AppBar(
-      backgroundColor: ProjectColors.purple,
+      //   backgroundColor: ProjectColors.purple,
       elevation: 0,
       //SECTION - AppBar Title text
       title: Text(
@@ -41,7 +42,7 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
         child: Container(
           margin: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-            color: ProjectColors.purpleLight,
+            //    color: ProjectColors.purpleLight,
             borderRadius: BorderRadius.circular(15),
           ),
           child: const Icon(Icons.blur_on),
@@ -95,18 +96,14 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
                   padding: const EdgeInsets.all(
                     5,
                   ),
-                  child: Chip(
+                  child: InputChip(
                     label: Text(
                       context.translate('today')!,
                       style: const TextStyle(
-                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    backgroundColor: conditionGetter(
-                      isToday,
-                      ProjectColors.orange,
-                      ProjectColors.purpleLight,
-                    ),
+                    selected: isToday,
                   ),
                 ),
               ),
@@ -125,17 +122,14 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
                   padding: const EdgeInsets.all(
                     5,
                   ),
-                  child: Chip(
+                  child: InputChip(
+                    selected: !isToday,
                     label: Text(
                       context.translate("tomorrow")!,
                       style: const TextStyle(
-                        color: Colors.white,
+                        //  color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    backgroundColor: conditionGetter(
-                      !isToday,
-                      ProjectColors.orange,
-                      ProjectColors.purpleLight,
                     ),
                   ),
                 ),

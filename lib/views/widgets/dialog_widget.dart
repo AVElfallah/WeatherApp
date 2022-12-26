@@ -24,7 +24,7 @@ class WeatherCustomDailog extends StatelessWidget {
           title: Text(
             title.toUpperCase(),
             style: const TextStyle(
-              color: Colors.black,
+              //  color: Colors.black,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),

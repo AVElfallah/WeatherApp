@@ -33,9 +33,9 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
     ForecastHourModel current = args['current'];
     LocationModel location = args['location'];
     return Scaffold(
-      backgroundColor: ProjectColors.purple,
+      //backgroundColor: ProjectColors.purple,
       appBar: AppBar(
-        backgroundColor: ProjectColors.purple,
+        //   backgroundColor: ProjectColors.purple,
         centerTitle: true,
         title: Text(location.name),
         elevation: 0,
@@ -50,7 +50,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                 DateTime.fromMillisecondsSinceEpoch(day.dateEpoch! * 1000),
               ),
               style: const TextStyle(
-                color: Colors.white,
+                //  color: Colors.white,
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
               ),
@@ -60,7 +60,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
             current.condition!.text!,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              color: Colors.white,
+              //  color: Colors.white,
               fontSize: 26,
               fontWeight: FontWeight.bold,
             ),
@@ -73,7 +73,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
             )}',
             textAlign: TextAlign.center,
             style: const TextStyle(
-              color: Colors.white,
+              //  color: Colors.white,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -101,7 +101,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                           '${current.tempF}°F',
                         ),
                         style: const TextStyle(
-                          color: Colors.white,
+                          //             color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
@@ -109,9 +109,9 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.arrow_upward,
-                            color: Colors.white,
+                            color: context.theme.splashColor,
                           ),
                           Text(
                             '${context.translate('max')}:${conditionGetter(
@@ -121,7 +121,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                             )}',
                             style: const TextStyle(
                               fontSize: 14,
-                              color: Colors.white,
+                              //  color: Colors.white,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
@@ -130,9 +130,9 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.arrow_downward,
-                            color: Colors.white,
+                            color: context.theme.splashColor,
                           ),
                           Text(
                             '${context.translate('min')}:${conditionGetter(
@@ -142,7 +142,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                             )}',
                             style: const TextStyle(
                               fontSize: 14,
-                              color: Colors.white,
+                              //    color: Colors.white,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
@@ -151,7 +151,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                       Text(
                         '${context.translate("humidity")} ${day.day!.avghumidity!}%',
                         style: const TextStyle(
-                          color: Colors.white,
+                          //   color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
@@ -167,7 +167,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                         Text(
                           '${context.translate('rain_avg')}: ${day.day!.dailyChanceOfRain}%',
                           style: const TextStyle(
-                            color: Colors.white,
+                            //     color: Colors.white,
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
@@ -179,7 +179,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                             '${current.windMph} m/h',
                           )}',
                           style: const TextStyle(
-                            color: Colors.white,
+                            //           color: Colors.white,
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
@@ -187,7 +187,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                         Text(
                           '${context.translate('WindDir')}: ${current.windDir}',
                           style: const TextStyle(
-                            color: Colors.white,
+                            //     color: Colors.white,
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
@@ -195,7 +195,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                         Text(
                           '${context.translate('clouds')}: ${current.cloud}%',
                           style: const TextStyle(
-                            color: Colors.white,
+                            //       color: Colors.white,
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
@@ -225,7 +225,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                         child: Text(
                           context.translate("sun_moon_status")!,
                           style: const TextStyle(
-                            color: Colors.white,
+                            //      color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
@@ -259,7 +259,7 @@ class _WeatherResultPageState extends State<WeatherResultPage> {
                         child: Text(
                           context.translate('day_hours')!,
                           style: const TextStyle(
-                            color: Colors.white,
+                            //  color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),

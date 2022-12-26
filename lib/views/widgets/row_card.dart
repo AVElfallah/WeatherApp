@@ -28,7 +28,7 @@ class RowCardWidget extends StatelessWidget {
           Text(
             '${hour!.tempC}°C',
             style: const TextStyle(
-              color: Colors.white,
+              //   color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
@@ -40,7 +40,7 @@ class RowCardWidget extends StatelessWidget {
           Text(
             formater,
             style: const TextStyle(
-              color: Colors.white,
+              //    color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
