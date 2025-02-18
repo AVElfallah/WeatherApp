@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:weather_app/model/forecast_hour_model.dart';
 import 'package:weather_app/model/location_model.dart';
-import 'package:weather_app/repository/outsource/weather_repo.dart';
 
 import '../model/forecast_day_model.dart';
+import '../repository/outsource/weather_repo.dart';
 
 class HomePageController extends ChangeNotifier {
   HomePageController(this.dayModel, this.current, this.locationModel) {

@@ -9,8 +9,9 @@ import 'package:weather_app/model/forecast_hour_model.dart';
 import 'package:weather_app/model/location_model.dart';
 import 'package:weather_app/repository/insource/location_permission.dart';
 import 'package:weather_app/repository/insource/network_connection.dart';
-import 'package:weather_app/repository/outsource/weather_repo.dart';
 import 'package:weather_app/views/widgets/dialog_widget.dart';
+
+import '../repository/outsource/weather_repo.dart';
 
 enum SplashState {
   checkConnection,

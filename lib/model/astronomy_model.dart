@@ -25,7 +25,7 @@ class AstronomyModel {
     moonrise = json['moonrise'];
     moonset = json['moonset'];
     moonPhase = json['moon_phase'];
-    moonIllumination = json['moon_illumination'];
+    moonIllumination = json['moon_illumination'].toString();
   }
 //SECTION - method
   Map<String, dynamic> toJson() {

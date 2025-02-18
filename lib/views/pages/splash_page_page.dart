@@ -1,14 +1,47 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/colors/colors.dart';
 import 'package:weather_app/config/context_extention.dart';
 import 'package:weather_app/controllers/splash_controller.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
+
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animationController;
+  late final Animation<double> _textAnimation;
+  late final ValueNotifier<int> _currentStateTextIndex;
+  @override
+  void initState() {
+    super.initState();
+    _currentStateTextIndex = ValueNotifier(0);
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 1200),
+      vsync: this,
+    );
+    _textAnimation = Tween(begin: 0.0, end: 1.0).animate(
+      _animationController,
+    );
+    _animationController.repeat(min: 0, max: 1, reverse: true);
+
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.reverse) {
+        _currentStateTextIndex.value = (_currentStateTextIndex.value + 1) % 3;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +116,28 @@ class SplashPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Visibility(
+                    AnimatedBuilder(
+                        animation: _animationController,
+                        builder: (context, child) {
+                          return FadeTransition(
+                            opacity: _textAnimation,
+                            child: ValueListenableBuilder<int>(
+                                valueListenable: _currentStateTextIndex,
+                                builder: (_, index, __) {
+                                  return Text(
+                                    [
+                                      context.translate(
+                                          'check network connection')!,
+                                      context.translate(
+                                          'get your current location')!,
+                                      context.translate(
+                                          'geting forcastes & open the app')!,
+                                    ][index],
+                                  );
+                                }),
+                          );
+                        })
+                    /* Visibility(
                       visible: context.watch<SplashPageController>().isLoaded,
                       child: SizedBox(
                         width: context.width * .76,
@@ -114,7 +168,7 @@ class SplashPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
               ),

@@ -1,4 +1,3 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/appbar/gf_appbar.dart';
 import 'package:getwidget/getwidget.dart';
@@ -27,76 +26,78 @@ class _SearchPageState extends State<SearchPage> {
       resizeToAvoidBottomInset: false,
       //   backgroundColor: const Color.fromARGB(255, 38, 2, 92),
       appBar: GFAppBar(
-          //  backgroundColor: const Color.fromARGB(255, 38, 2, 92),
-          elevation: 0,
-          centerTitle: true,
-          title: conditionGetter(
-            wCtrl.isSearchButtonClicked,
-            AnimatedTextKit(
-              onTap: () {
-                rCtrl.clickSearchButton();
-              },
-              animatedTexts: [
-                WavyAnimatedText(wCtrl.txtController.text),
-              ],
+        //  backgroundColor: const Color.fromARGB(255, 38, 2, 92),
+        elevation: 0,
+        centerTitle: true,
+        title: conditionGetter(
+          wCtrl.isSearchButtonClicked,
+          /* AnimatedTextKit(
+            onTap: () {
+              rCtrl.clickSearchButton();
+            },
+            animatedTexts: [
+              WavyAnimatedText(wCtrl.txtController.text),
+            ],
+          )*/
+          SizedBox.shrink(),
+          Row(
+            mainAxisAlignment: conditionGetter(
+              context.isPortrait,
+              MainAxisAlignment.spaceBetween,
+              MainAxisAlignment.spaceEvenly,
             ),
-            Row(
-              mainAxisAlignment: conditionGetter(
-                context.isPortrait,
-                MainAxisAlignment.spaceBetween,
-                MainAxisAlignment.spaceEvenly,
-              ),
-              children: [
-                TextFormField(
-                  onFieldSubmitted: (value) {
-                    rCtrl.clickSearchButton();
-                    rCtrl.search();
-                  },
-                  controller: wCtrl.txtController,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 19,
+            children: [
+              TextFormField(
+                onFieldSubmitted: (value) {
+                  rCtrl.clickSearchButton();
+                  rCtrl.search();
+                },
+                controller: wCtrl.txtController,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 19,
+                ),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 12,
                   ),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 12,
+                  hintText: context.translate('search'),
+                  constraints: BoxConstraints(
+                    maxHeight: conditionGetter(
+                      context.isPortrait,
+                      context.height * .050,
+                      context.height * .1,
                     ),
-                    hintText: context.translate('search'),
-                    constraints: BoxConstraints(
-                      maxHeight: conditionGetter(
-                        context.isPortrait,
-                        context.height * .050,
-                        context.height * .1,
-                      ),
-                      maxWidth: context.width * .64,
+                    maxWidth: context.width * .64,
+                  ),
+                  fillColor: Colors.white,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      25,
                     ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        25,
-                      ),
-                      borderSide: const BorderSide(
-                        color: Colors.black,
-                      ),
-                      gapPadding: 2,
+                    borderSide: const BorderSide(
+                      color: Colors.black,
                     ),
+                    gapPadding: 2,
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    rCtrl.clickSearchButton();
-                    rCtrl.search();
-                  },
-                  icon: const Icon(
-                    Icons.search,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                )
-              ],
-            ),
-          )),
+              ),
+              IconButton(
+                onPressed: () {
+                  rCtrl.clickSearchButton();
+                  rCtrl.search();
+                },
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
       body: Visibility(
         visible: wCtrl.searchResult.isNotEmpty,
         child: ListView.builder(

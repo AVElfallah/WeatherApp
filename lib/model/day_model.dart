@@ -62,7 +62,7 @@ class DayModel {
     totalsnowCm = json['totalsnow_cm'];
     avgvisKm = json['avgvis_km'];
     avgvisMiles = json['avgvis_miles'];
-    avghumidity = json['avghumidity'];
+    avghumidity = double.parse(json['avghumidity'].toString());
     dailyWillItRain = json['daily_will_it_rain'] == 1;
     dailyChanceOfRain = json['daily_chance_of_rain'];
     dailyWillItSnow = json['daily_will_it_snow'] == 1;

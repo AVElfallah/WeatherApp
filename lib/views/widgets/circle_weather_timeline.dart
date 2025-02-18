@@ -49,8 +49,8 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
           SizedBox(
             width: conditionGetter(
               context.isPortrait,
-              context.width * .25,
-              context.width * .25,
+              context.width * .28,
+              context.width * .28,
             ),
             height: conditionGetter(
               context.isPortrait,
@@ -60,26 +60,34 @@ class _CircleWeatherTimeLineState extends State<CircleWeatherTimeLine> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image.asset(
-                  i[ind],
-                  scale: 8,
-                ),
-                Text(
-                  conditionGetter(
-                    word[ind]!.contains(
-                      RegExp('[AM+P+:]'),
-                    ),
-                    word[ind]!.replaceFirstMapped(
-                      RegExp('AM|PM'),
-                      (s) => context.translate(
-                        s[0]!.toLowerCase(),
-                      )!,
-                    ),
-                    word[ind]!.toUpperCase(),
+                Flexible(
+                  flex: 2,
+                  child: Image.asset(
+                    i[ind],
+                    scale: 8,
                   ),
-                  style: const TextStyle(
-                      //    color: Colors.white,
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Text(
+                    conditionGetter(
+                      word[ind]!.contains(
+                        RegExp('[AM+P+:]'),
                       ),
+                      word[ind]!.replaceFirstMapped(
+                        RegExp('AM|PM'),
+                        (s) => context.translate(
+                          s[0]!.toLowerCase(),
+                        )!,
+                      ),
+                      word[ind]!.toUpperCase(),
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        //    color: Colors.white,
+                        ),
+                  ),
                 )
               ],
             ),
